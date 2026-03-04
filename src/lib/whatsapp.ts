@@ -1,0 +1,87 @@
+import { CartItem } from "./cartReducer";
+
+export function buildRepairLink(phone: string): string {
+    const message = encodeURIComponent(
+        "Hi, I would like to book a repair for my phone. Can you help me?"
+    );
+    return `https://wa.me/${phone.replace(/[^0-9]/g, "")}?text=${message}`;
+}
+
+/**
+ * Builds a structured, split WhatsApp message that clearly separates
+ * Repair Services from Accessories.
+ */
+function buildSplitMessage(items: CartItem[], total: number, paymentMethod: string): string {
+    const services = items.filter(i => i.itemType === "service");
+    const products = items.filter(i => i.itemType === "product" && !i.isFreeItem);
+
+    const lines: string[] = ["Hi Allauddin! Here is my request:"];
+
+    // ── Repair Services Section ──
+    if (services.length > 0) {
+        lines.push("\n🔧 *REPAIR SERVICES*");
+        services.forEach((item, idx) => {
+            const priceStr = item.startingPrice
+                ? `Starting ₹${item.startingPrice}`
+                : "Price on diagnosis";
+            lines.push(`${idx + 1}. ${item.name}  —  ${priceStr}`);
+        });
+    }
+
+    // ── Accessories Section ──
+    if (products.length > 0) {
+        lines.push("\n📦 *ACCESSORIES*");
+        let lineNum = 1;
+        for (const item of products) {
+            const linePrice = item.originalPrice * item.quantity;
+            lines.push(`${lineNum}. ${item.name} x${item.quantity}  —  ₹${linePrice}`);
+            // BOGO free item — show inline
+            if (item.offerType === "bogo") {
+                lines.push(`   + ${item.name} x${item.quantity}  —  FREE (Buy One Get One)`);
+            }
+            lineNum++;
+        }
+        lines.push(`\n💰 *Accessories Total: ₹${total}*`);
+    }
+
+    // ── Payment ──
+    if (services.length > 0 && products.length === 0) {
+        // Services-only cart: no accessory total
+        lines.push("\n💬 The repair price will be confirmed after diagnosis.");
+    }
+
+    lines.push(`💳 Payment: ${paymentMethod}`);
+    lines.push("\nPlease confirm my request!");
+
+    return lines.join("\n");
+}
+
+export function buildCashOrderLink(
+    phone: string,
+    items: CartItem[],
+    total: number,
+): string {
+    const message = buildSplitMessage(items, total, "Cash on Pickup");
+    return `https://wa.me/${phone.replace(/[^0-9]/g, "")}?text=${encodeURIComponent(message)}`;
+}
+
+export function buildUpiLink(
+    upiId: string,
+    amount: number,
+    name: string = "Allauddin Mobile Service"
+): string {
+    return `upi://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(name)}&am=${amount}&cu=INR&tn=Order+Request`;
+}
+
+export function buildUpiOrderLink(
+    phone: string,
+    items: CartItem[],
+    total: number,
+    upiId: string,
+): { whatsappLink: string; upiLink: string } {
+    const message = buildSplitMessage(items, total, "UPI (paid)");
+    return {
+        whatsappLink: `https://wa.me/${phone.replace(/[^0-9]/g, "")}?text=${encodeURIComponent(message)}`,
+        upiLink: buildUpiLink(upiId, total),
+    };
+}

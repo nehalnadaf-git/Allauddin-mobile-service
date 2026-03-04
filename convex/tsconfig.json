@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "target": "ESNext",
+        "lib": [
+            "ES2021"
+        ],
+        "module": "ESNext",
+        "moduleResolution": "bundler",
+        "strict": false,
+        "skipLibCheck": true,
+        "noEmit": true,
+        "esModuleInterop": true,
+        "jsx": "react-jsx",
+        "isolatedModules": true
+    },
+    "include": [
+        "./**/*.ts",
+        "./**/*.tsx"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}

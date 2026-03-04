@@ -12,7 +12,6 @@ import { useQuery, api } from "@/lib/mockBackend";
 import { useRepairModal } from "@/lib/hooks/useRepairModal";
 import { useCart } from "@/lib/cart";
 import { toast } from "@/components/ui/Toast";
-import ServiceHighlightBanner from "@/components/services/ServiceHighlightBanner";
 
 const iconMap: Record<string, any> = {
     Smartphone, BatteryFull, Plug, Volume2, RotateCcw, Droplets,
@@ -135,10 +134,6 @@ export default function ServicesPage() {
             <section className="pb-20 md:pb-28" style={{ background: "#F4F3FF" }}>
                 <div className="container-max mx-auto px-4">
 
-                    {/* Highlight banner */}
-                    <div className="pt-8 mb-10">
-                        <ServiceHighlightBanner />
-                    </div>
 
                     {services && services.length > 0 ? (
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">

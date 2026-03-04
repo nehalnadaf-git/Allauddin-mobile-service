@@ -28,9 +28,26 @@ const trustPills = [
 
 export default function ServicesPage() {
     const services = useQuery(api.services.listVisible);
+    const settings = useQuery(api.settings.get);
     const { openRepairModal } = useRepairModal();
     const { addItem } = useCart();
     const [addedIds, setAddedIds] = useState<Set<string>>(new Set());
+
+    // Directly open WhatsApp with the specific service pre-filled
+    const handleBookRepair = (service: any) => {
+        const num = settings?.whatsappNumber?.replace(/[^0-9]/g, "") || "916363278962";
+        const price = service.startingPrice
+            ? `\n💰 Starting Price: ₹${service.startingPrice}`
+            : "";
+        const msg = [
+            `🔧 *Repair Booking Request*`,
+            ``,
+            `*Service:* ${service.name}${price}`,
+            ``,
+            `Please confirm my booking slot. Thank you!`,
+        ].join("\n");
+        window.open(`https://wa.me/${num}?text=${encodeURIComponent(msg)}`, "_blank");
+    };
 
     const handleAddService = (service: any) => {
         if (addedIds.has(service._id)) return;
@@ -211,7 +228,7 @@ export default function ServicesPage() {
                                             {/* Footer row: CTA + Add to Cart */}
                                             <div className="mt-auto flex items-center justify-between gap-2">
                                                 <button
-                                                    onClick={openRepairModal}
+                                                    onClick={() => handleBookRepair(service)}
                                                     className="flex items-center gap-1.5 font-poppins font-semibold text-[13px] transition-all duration-200 hover:gap-2.5 active:scale-95"
                                                     style={{ color: "#7C3AED" }}
                                                 >

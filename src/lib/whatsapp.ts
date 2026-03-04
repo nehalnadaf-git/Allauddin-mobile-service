@@ -26,10 +26,7 @@ function buildSplitMessage(
     if (services.length > 0) {
         lines.push("\n*REPAIR SERVICES*");
         services.forEach((item, idx) => {
-            const priceStr = item.startingPrice
-                ? `Starting Rs.${item.startingPrice}`
-                : "Price on diagnosis";
-            lines.push(`${idx + 1}. ${item.name}  -  ${priceStr}`);
+            lines.push(`${idx + 1}. ${item.name}`);
         });
     }
 

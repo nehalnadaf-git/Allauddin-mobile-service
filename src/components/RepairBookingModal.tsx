@@ -89,7 +89,7 @@ export default function RepairBookingModal() {
         const num = settings?.whatsappNumber?.replace(/[^0-9]/g, "") || "916363278962";
         const finalProblem = problem === "Other Issue" ? customProblem || "Other Issue" : problem;
         const msg = [
-            `📱 *Repair Booking Request*`,
+            `*Repair Booking Request*`,
             ``,
             `*Device:* ${brand} ${model}`,
             `*Problem:* ${finalProblem}`,

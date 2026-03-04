@@ -37,10 +37,10 @@ export default function ServicesPage() {
     const handleBookRepair = (service: any) => {
         const num = settings?.whatsappNumber?.replace(/[^0-9]/g, "") || "916363278962";
         const price = service.startingPrice
-            ? `\n💰 Starting Price: ₹${service.startingPrice}`
+            ? `\nStarting Price: Rs.${service.startingPrice}`
             : "";
         const msg = [
-            `🔧 *Repair Booking Request*`,
+            `*Repair Booking Request*`,
             ``,
             `*Service:* ${service.name}${price}`,
             ``,

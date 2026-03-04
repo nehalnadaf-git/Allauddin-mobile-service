@@ -19,38 +19,38 @@ function buildSplitMessage(items: CartItem[], total: number, paymentMethod: stri
 
     // ── Repair Services Section ──
     if (services.length > 0) {
-        lines.push("\n🔧 *REPAIR SERVICES*");
+        lines.push("\n*REPAIR SERVICES*");
         services.forEach((item, idx) => {
             const priceStr = item.startingPrice
-                ? `Starting ₹${item.startingPrice}`
+                ? `Starting Rs.${item.startingPrice}`
                 : "Price on diagnosis";
-            lines.push(`${idx + 1}. ${item.name}  —  ${priceStr}`);
+            lines.push(`${idx + 1}. ${item.name}  -  ${priceStr}`);
         });
     }
 
     // ── Accessories Section ──
     if (products.length > 0) {
-        lines.push("\n📦 *ACCESSORIES*");
+        lines.push("\n*ACCESSORIES*");
         let lineNum = 1;
         for (const item of products) {
             const linePrice = item.originalPrice * item.quantity;
-            lines.push(`${lineNum}. ${item.name} x${item.quantity}  —  ₹${linePrice}`);
+            lines.push(`${lineNum}. ${item.name} x${item.quantity}  -  Rs.${linePrice}`);
             // BOGO free item — show inline
             if (item.offerType === "bogo") {
-                lines.push(`   + ${item.name} x${item.quantity}  —  FREE (Buy One Get One)`);
+                lines.push(`   + ${item.name} x${item.quantity}  -  FREE (Buy One Get One)`);
             }
             lineNum++;
         }
-        lines.push(`\n💰 *Accessories Total: ₹${total}*`);
+        lines.push(`\n*Accessories Total: Rs.${total}*`);
     }
 
     // ── Payment ──
     if (services.length > 0 && products.length === 0) {
         // Services-only cart: no accessory total
-        lines.push("\n💬 The repair price will be confirmed after diagnosis.");
+        lines.push("\nThe repair price will be confirmed after diagnosis.");
     }
 
-    lines.push(`💳 Payment: ${paymentMethod}`);
+    lines.push(`Payment: ${paymentMethod}`);
     lines.push("\nPlease confirm my request!");
 
     return lines.join("\n");

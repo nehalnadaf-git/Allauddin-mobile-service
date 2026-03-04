@@ -33,10 +33,21 @@ export default function ProductsPage() {
     const [isInStock, setIsInStock] = useState(true);
     const [imageFile, setImageFile] = useState<File | null>(null);
     const [isUploading, setIsUploading] = useState(false);
+    // Offer state
+    const [offerType, setOfferType] = useState<"none" | "discount" | "bogo">("none");
+    const [discountPct, setDiscountPct] = useState("");
+
+    const calcDiscountedPrice = () => {
+        const p = parseFloat(price);
+        const d = parseFloat(discountPct);
+        if (!p || !d || d <= 0 || d >= 100) return undefined;
+        return Math.round(p * (1 - d / 100));
+    };
 
     const resetForm = () => {
         setName(""); setCategoryId(""); setPrice(""); setPriceRange("");
         setDescription(""); setIsInStock(true); setImageFile(null);
+        setOfferType("none"); setDiscountPct("");
     };
 
     const openCreate = () => { setEditingId(null); resetForm(); setModalOpen(true); };
@@ -45,6 +56,8 @@ export default function ProductsPage() {
         setEditingId(p._id); setName(p.name); setCategoryId(p.categoryId);
         setPrice(p.price.toString()); setPriceRange(p.priceRange || "");
         setDescription(p.description || ""); setIsInStock(p.isInStock);
+        setOfferType(p.offerType || "none");
+        setDiscountPct(p.discountPercentage ? p.discountPercentage.toString() : "");
         setImageFile(null); setModalOpen(true);
     };
 
@@ -62,13 +75,22 @@ export default function ProductsPage() {
             }
 
             if (editingId) {
-                const updates: any = { id: editingId, name, categoryId, price: parseFloat(price), priceRange: priceRange || undefined, description: description || undefined, isInStock };
+                const updates: any = { id: editingId, name, categoryId, price: parseFloat(price), priceRange: priceRange || undefined, description: description || undefined, isInStock, offerType };
                 if (imageStorageId) updates.imageStorageId = imageStorageId;
+                if (offerType === "discount") {
+                    updates.discountPercentage = parseFloat(discountPct) || undefined;
+                    updates.discountedPrice = calcDiscountedPrice();
+                } else {
+                    updates.discountPercentage = undefined;
+                    updates.discountedPrice = undefined;
+                }
                 await updateProduct(updates);
                 await logAction({ action: "Product Updated", details: name });
                 toast("Product updated!", "success");
             } else {
-                await createProduct({ name, categoryId: categoryId as any, price: parseFloat(price), priceRange: priceRange || undefined, description: description || undefined, isInStock, displayOrder: products?.length || 0, imageStorageId });
+                const discountedPrice = offerType === "discount" ? calcDiscountedPrice() : undefined;
+                const discountPercentage = offerType === "discount" && discountPct ? parseFloat(discountPct) : undefined;
+                await createProduct({ name, categoryId: categoryId as any, price: parseFloat(price), priceRange: priceRange || undefined, description: description || undefined, isInStock, displayOrder: products?.length || 0, imageStorageId, offerType: offerType !== "none" ? offerType : undefined, discountPercentage, discountedPrice });
                 await logAction({ action: "Product Added", details: name });
                 toast("Product created!", "success");
             }
@@ -140,7 +162,15 @@ export default function ProductsPage() {
                                 <Package size={20} className="text-muted" />
                             </div>
                             <div className="flex-1 min-w-0">
-                                <p className="font-dm font-medium text-sm text-deep-text truncate">{p.name}</p>
+                                <div className="flex items-center gap-2 flex-wrap">
+                                    <p className="font-dm font-medium text-sm text-deep-text truncate">{p.name}</p>
+                                    {p.offerType === "bogo" && (
+                                        <span className="text-[10px] font-poppins font-bold px-2 py-0.5 rounded-full text-white" style={{ background: "linear-gradient(135deg,#F59E0B,#D97706)" }}>BUY 1 GET 1</span>
+                                    )}
+                                    {p.offerType === "discount" && p.discountPercentage && (
+                                        <span className="text-[10px] font-poppins font-bold px-2 py-0.5 rounded-full text-white" style={{ background: "linear-gradient(135deg,#7C3AED,#6D28D9)" }}>{p.discountPercentage}% OFF</span>
+                                    )}
+                                </div>
                                 <p className="text-xs text-muted font-dm">{getCategoryName(p.categoryId)}</p>
                                 <p className="font-poppins font-bold text-sm text-primary mt-1">{p.priceRange || `₹${p.price}`}</p>
                             </div>
@@ -196,6 +226,54 @@ export default function ProductsPage() {
                             <span className="text-sm text-muted font-dm">{imageFile ? imageFile.name : "Choose file"}</span>
                             <input type="file" accept="image/jpeg,image/png,image/webp" onChange={(e) => setImageFile(e.target.files?.[0] || null)} className="hidden" />
                         </label>
+                    </div>
+                    {/* ── Offer Section ── */}
+                    <div className="rounded-xl border border-border-grey p-4 space-y-3" style={{ background: "#FAFAFA" }}>
+                        <p className="font-poppins font-semibold text-sm text-deep-text">Offer / Promotion</p>
+                        <div className="grid grid-cols-3 gap-2">
+                            {(["none", "discount", "bogo"] as const).map(type => (
+                                <button
+                                    key={type}
+                                    type="button"
+                                    onClick={() => { setOfferType(type); if (type !== "discount") setDiscountPct(""); }}
+                                    className="py-2 rounded-xl text-xs font-poppins font-semibold border transition-all"
+                                    style={{
+                                        background: offerType === type
+                                            ? type === "bogo" ? "linear-gradient(135deg,#F59E0B,#D97706)"
+                                                : type === "discount" ? "linear-gradient(135deg,#7C3AED,#6D28D9)"
+                                                    : "#1A1035"
+                                            : "white",
+                                        color: offerType === type ? "white" : "#6B7280",
+                                        borderColor: offerType === type ? "transparent" : "#E5E7EB",
+                                    }}
+                                >
+                                    {type === "none" ? "No Offer" : type === "bogo" ? "Buy 1 Get 1" : "Discount %"}
+                                </button>
+                            ))}
+                        </div>
+                        {offerType === "discount" && (
+                            <div className="flex items-center gap-3">
+                                <div className="flex-1">
+                                    <label className="block font-dm text-xs font-medium text-deep-text mb-1">Discount %</label>
+                                    <input
+                                        type="number" min="1" max="99"
+                                        value={discountPct}
+                                        onChange={e => setDiscountPct(e.target.value)}
+                                        placeholder="e.g. 20"
+                                        className="w-full px-3 py-2 rounded-xl border border-border-grey bg-white focus:border-primary outline-none text-sm font-dm"
+                                    />
+                                </div>
+                                {discountPct && price && (
+                                    <div className="text-center">
+                                        <p className="font-dm text-xs text-muted">New Price</p>
+                                        <p className="font-poppins font-bold text-primary text-sm">₹{calcDiscountedPrice()}</p>
+                                    </div>
+                                )}
+                            </div>
+                        )}
+                        {offerType === "bogo" && (
+                            <p className="font-dm text-xs" style={{ color: "#9CA3AF" }}>Customers buy 1, get 1 free. The free item is automatically added to their cart.</p>
+                        )}
                     </div>
                     <div className="flex items-center gap-2">
                         <input type="checkbox" id="inStock" checked={isInStock} onChange={(e) => setIsInStock(e.target.checked)} className="rounded" />

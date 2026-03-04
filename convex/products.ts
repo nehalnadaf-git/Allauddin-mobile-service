@@ -82,6 +82,9 @@ export const update = mutation({
         isInStock: v.optional(v.boolean()),
         isVisible: v.optional(v.boolean()),
         displayOrder: v.optional(v.number()),
+        offerType: v.optional(v.union(v.literal("none"), v.literal("discount"), v.literal("bogo"))),
+        discountPercentage: v.optional(v.number()),
+        discountedPrice: v.optional(v.number()),
     },
     handler: async (ctx, args) => {
         const { id, ...fields } = args;

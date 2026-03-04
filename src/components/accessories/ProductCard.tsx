@@ -6,6 +6,7 @@ import { ShoppingCart, Check, Gift, Eye, Package } from "lucide-react";
 import { useCart } from "@/lib/cart";
 import Link from "next/link";
 import { toast } from "@/components/ui/Toast";
+import { useStorageUrl } from "@/lib/hooks/useStorageUrl";
 
 interface ProductCardProps {
     product: {
@@ -51,7 +52,9 @@ export default function ProductCard({ product, category, index }: ProductCardPro
         setTimeout(() => setJustAdded(false), 1200);
     };
 
-    const hasImage = !!(product.imageUrl || product.imageStorageId);
+    const resolvedStorageUrl = useStorageUrl(product.imageStorageId);
+    const hasImage = !!(product.imageUrl || resolvedStorageUrl);
+    const imageSrc = product.imageUrl || resolvedStorageUrl;
 
     return (
         <motion.div
@@ -85,7 +88,7 @@ export default function ProductCard({ product, category, index }: ProductCardPro
             <div className="relative overflow-hidden" style={{ aspectRatio: "1 / 1" }}>
                 {hasImage ? (
                     <img
-                        src={product.imageUrl || `/api/storage/${product.imageStorageId}`}
+                        src={imageSrc!}
                         alt={product.name}
                         className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-108"
                         style={{ transition: "transform 0.7s ease" }}

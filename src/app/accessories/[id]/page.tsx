@@ -13,6 +13,7 @@ import { useCart } from "@/lib/cart";
 import { toast } from "@/components/ui/Toast";
 import Link from "next/link";
 import { useState } from "react";
+import { useStorageUrl } from "@/lib/hooks/useStorageUrl";
 
 export default function ProductDetailPage() {
     const { id } = useParams<{ id: string }>();
@@ -48,8 +49,9 @@ export default function ProductDetailPage() {
         setTimeout(() => setJustAdded(false), 1400);
     };
 
-    const hasImage = !!((product as any)?.imageUrl || product?.imageStorageId);
-    const imageUrl = (product as any)?.imageUrl || (product?.imageStorageId ? `/api/storage/${product.imageStorageId}` : null);
+    const resolvedStorageUrl = useStorageUrl(product?.imageStorageId);
+    const hasImage = !!((product as any)?.imageUrl || resolvedStorageUrl);
+    const imageUrl = (product as any)?.imageUrl || resolvedStorageUrl;
 
     return (
         <div className="min-h-screen" style={{ background: "#F4F3FF" }}>

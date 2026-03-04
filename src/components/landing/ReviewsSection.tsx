@@ -230,7 +230,7 @@ export default function ReviewsSection() {
                                     {/* Review text */}
                                     <div className="px-6 py-5 flex-1">
                                         <p className="font-dm text-[14px] leading-[1.75]" style={{ color: "#374151" }}>
-                                            "{review.reviewText}"
+                                            &ldquo;{review.reviewText}&rdquo;
                                         </p>
                                     </div>
 

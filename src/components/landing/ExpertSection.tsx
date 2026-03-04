@@ -72,7 +72,7 @@ export default function ExpertSection() {
 
                                 {/* Tagline */}
                                 <p className="mt-4 font-dm text-[13px] text-white/50 leading-relaxed">
-                                    Hubli's trusted mobile repair expert since 2012 — known for precision, honesty &amp; care.
+                                    Hubli&apos;s trusted mobile repair expert since 2012 — known for precision, honesty &amp; care.
                                 </p>
                             </div>
                         </div>
@@ -119,7 +119,7 @@ export default function ExpertSection() {
                         </h2>
 
                         <p className="font-dm text-[16px] md:text-[18px] text-[#64748B] leading-relaxed mb-10 max-w-[480px]">
-                            "I founded Allauddin Mobile Service with a single mission — to give every customer the most honest, expert repair service possible. Your device is in safe hands."
+                            &ldquo;I founded Allauddin Mobile Service with a single mission — to give every customer the most honest, expert repair service possible. Your device is in safe hands.&rdquo;
                         </p>
 
                         <div className="space-y-4">

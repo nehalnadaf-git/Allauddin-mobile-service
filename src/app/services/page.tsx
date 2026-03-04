@@ -283,7 +283,7 @@ export default function ServicesPage() {
                                 Not sure which service you need?
                             </p>
                             <h2 className="font-bricolage font-bold text-white mb-4 leading-tight" style={{ fontSize: "clamp(22px, 4vw, 32px)", letterSpacing: "-0.01em" }}>
-                                We'll Diagnose It — Free of Charge
+                                We&apos;ll Diagnose It — Free of Charge
                             </h2>
                             <p className="font-dm text-[15px] max-w-[480px] mx-auto mb-8" style={{ color: "rgba(255,255,255,0.65)", lineHeight: 1.65 }}>
                                 Bring your phone in or book a slot. Our technicians will identify the issue at no cost, before you commit to any repair.

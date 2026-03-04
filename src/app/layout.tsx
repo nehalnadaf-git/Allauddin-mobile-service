@@ -7,6 +7,10 @@ import LayoutShell from "@/components/LayoutShell";
 import RepairBookingModal from "@/components/RepairBookingModal";
 import { ConvexClientProvider } from "@/lib/providers/ConvexClientProvider";
 
+// Force all pages to render dynamically — required because every page uses
+// Convex useQuery which needs a live client and cannot run during SSG.
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Allauddin Mobile Service | Phone Repair & Accessories in Hubli, Karnataka",
   description:

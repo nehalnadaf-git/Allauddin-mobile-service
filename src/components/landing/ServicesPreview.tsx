@@ -10,7 +10,6 @@ import {
 import { useQuery } from "@/lib/mockBackend";
 import { api } from "@/lib/mockBackend";
 import Link from "next/link";
-import { useRepairModal } from "@/lib/hooks/useRepairModal";
 
 const iconMap: Record<string, any> = {
     Smartphone, BatteryFull, Plug, RotateCcw, Droplets,
@@ -40,7 +39,19 @@ function resolveService(service: any): { Icon: any } {
 
 export default function ServicesPreview() {
     const services = useQuery(api.services.listVisible);
-    const { openRepairModal } = useRepairModal();
+    const settings = useQuery(api.settings.get);
+
+    const handleBookRepair = (service: any) => {
+        const num = settings?.whatsappNumber?.replace(/[^0-9]/g, "") || "916363278962";
+        const msg = [
+            `*Repair Booking Request*`,
+            ``,
+            `*Service:* ${service.name}`,
+            ``,
+            `Please confirm my booking slot. Thank you!`,
+        ].join("\n");
+        window.open(`https://wa.me/${num}?text=${encodeURIComponent(msg)}`, "_blank");
+    };
 
     if (!services || services.length === 0) return null;
 
@@ -171,7 +182,7 @@ export default function ServicesPreview() {
 
                                     {/* Book CTA */}
                                     <button
-                                        onClick={openRepairModal}
+                                        onClick={() => handleBookRepair(service)}
                                         className="mt-5 flex items-center gap-1.5 font-poppins font-semibold text-[13px] transition-all duration-200 hover:gap-2.5 active:scale-95"
                                         style={{ color: "#7C3AED" }}
                                     >

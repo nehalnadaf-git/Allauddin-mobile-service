@@ -13,20 +13,20 @@ export default function AccessoriesPage() {
     const categories = useQuery(api.categories.listVisible);
     const settings = useQuery(api.settings.get);
 
-    const [activeCategory, setActiveCategory] = useState<string | null>(null);
+    const [activeOffer, setActiveOffer] = useState<string | null>(null);
     const [searchQuery, setSearchQuery] = useState("");
 
     const filteredProducts = useMemo(() => {
         if (!products) return [];
         return products.filter((p: any) => {
-            const matchesCategory = !activeCategory || p.categoryId === activeCategory;
+            const matchesOffer = !activeOffer || p.offerType === activeOffer;
             const matchesSearch =
                 !searchQuery ||
                 p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                 (p.description || "").toLowerCase().includes(searchQuery.toLowerCase());
-            return matchesCategory && matchesSearch;
+            return matchesOffer && matchesSearch;
         });
-    }, [products, activeCategory, searchQuery]);
+    }, [products, activeOffer, searchQuery]);
 
     const activeCount = filteredProducts.length;
 
@@ -101,28 +101,31 @@ export default function AccessoriesPage() {
                     {/* Category Pills */}
                     <div className="flex items-center gap-2 overflow-x-auto pb-2" style={{ scrollbarWidth: "none" }}>
                         <button
-                            onClick={() => setActiveCategory(null)}
+                            onClick={() => setActiveOffer(null)}
                             className="flex-shrink-0 px-4 py-1.5 rounded-full text-[13px] font-poppins font-semibold transition-all duration-200 whitespace-nowrap"
                             style={
-                                activeCategory === null
+                                activeOffer === null
                                     ? { background: "linear-gradient(135deg,#7C3AED,#6D28D9)", color: "white", boxShadow: "0 4px 14px rgba(124,58,237,0.3)" }
                                     : { background: "rgba(124,58,237,0.08)", color: "#7C3AED" }
                             }
                         >
-                            All
+                            All Products
                         </button>
-                        {categories?.map((cat: any) => (
+                        {[
+                            { id: "discount", name: "Discount Offers" },
+                            { id: "bogo", name: "Buy 1 Get 1" }
+                        ].map((offer) => (
                             <button
-                                key={cat._id}
-                                onClick={() => setActiveCategory(activeCategory === cat._id ? null : cat._id)}
+                                key={offer.id}
+                                onClick={() => setActiveOffer(activeOffer === offer.id ? null : offer.id)}
                                 className="flex-shrink-0 px-4 py-1.5 rounded-full text-[13px] font-poppins font-semibold transition-all duration-200 whitespace-nowrap"
                                 style={
-                                    activeCategory === cat._id
+                                    activeOffer === offer.id
                                         ? { background: "linear-gradient(135deg,#7C3AED,#6D28D9)", color: "white", boxShadow: "0 4px 14px rgba(124,58,237,0.3)" }
                                         : { background: "rgba(124,58,237,0.08)", color: "#7C3AED" }
                                 }
                             >
-                                {cat.name}
+                                {offer.name}
                             </button>
                         ))}
                     </div>
@@ -234,9 +237,9 @@ export default function AccessoriesPage() {
                                 <p className="font-dm text-[14px] mb-6" style={{ color: "#9CA3AF" }}>
                                     Try a different category or search term
                                 </p>
-                                {(activeCategory || searchQuery) && (
+                                {(activeOffer || searchQuery) && (
                                     <button
-                                        onClick={() => { setActiveCategory(null); setSearchQuery(""); }}
+                                        onClick={() => { setActiveOffer(null); setSearchQuery(""); }}
                                         className="font-poppins font-semibold text-[13px] px-6 py-2.5 rounded-full transition-all hover:-translate-y-0.5 active:scale-95"
                                         style={{ background: "linear-gradient(135deg,#7C3AED,#6D28D9)", color: "white", boxShadow: "0 4px 14px rgba(124,58,237,0.3)" }}
                                     >

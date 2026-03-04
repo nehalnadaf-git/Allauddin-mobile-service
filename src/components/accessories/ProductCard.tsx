@@ -133,15 +133,6 @@ export default function ProductCard({ product, category, index }: ProductCardPro
                     </span>
                 )}
 
-                {/* Category badge */}
-                {category && (
-                    <span
-                        className="absolute top-2.5 left-2.5 font-poppins font-semibold text-[10px] px-2.5 py-1 rounded-xl z-10"
-                        style={{ background: "rgba(26,16,53,0.75)", color: "rgba(255,255,255,0.9)", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.1)" }}
-                    >
-                        {category.name}
-                    </span>
-                )}
 
                 {/* Quick-view hover overlay */}
                 <AnimatePresence>

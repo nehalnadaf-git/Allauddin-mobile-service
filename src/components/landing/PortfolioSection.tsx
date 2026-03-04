@@ -1,8 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useState, useRef } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, CheckCircle2, Layers } from "lucide-react";
+import { ArrowRight, CheckCircle2, Layers, ChevronLeft, ChevronRight } from "lucide-react";
 import { useQuery } from "@/lib/mockBackend";
 import { api } from "@/lib/mockBackend";
 import { useStorageUrl } from "@/lib/hooks/useStorageUrl";
@@ -39,8 +39,6 @@ const PLACEHOLDERS = [
 ];
 
 function PortfolioCard({ item, index }: { item: any; index: number }) {
-    const hasImages = !!(item.imageUrlBefore || item.imageUrlAfter);
-
     return (
         <motion.div
             initial={{ opacity: 0, y: 28 }}
@@ -186,6 +184,125 @@ function PortfolioItemResolver({ item, index }: { item: any; index: number }) {
     return <PortfolioCard item={resolved} index={index} />;
 }
 
+/** Mobile-only touch slider wrapper */
+function MobileSlider({ items }: { items: any[] }) {
+    const [current, setCurrent] = useState(0);
+    const touchStartX = useRef<number | null>(null);
+    const touchEndX = useRef<number | null>(null);
+    const MIN_SWIPE = 40;
+
+    const prev = () => setCurrent(c => Math.max(0, c - 1));
+    const next = () => setCurrent(c => Math.min(items.length - 1, c + 1));
+
+    const onTouchStart = (e: React.TouchEvent) => {
+        touchStartX.current = e.touches[0].clientX;
+        touchEndX.current = null;
+    };
+    const onTouchMove = (e: React.TouchEvent) => {
+        touchEndX.current = e.touches[0].clientX;
+    };
+    const onTouchEnd = () => {
+        if (touchStartX.current === null || touchEndX.current === null) return;
+        const delta = touchStartX.current - touchEndX.current;
+        if (Math.abs(delta) >= MIN_SWIPE) {
+            if (delta > 0) next();
+            else prev();
+        }
+        touchStartX.current = null;
+        touchEndX.current = null;
+    };
+
+    return (
+        <div className="relative">
+            {/* Slide area */}
+            <div
+                className="overflow-hidden"
+                onTouchStart={onTouchStart}
+                onTouchMove={onTouchMove}
+                onTouchEnd={onTouchEnd}
+            >
+                <div
+                    className="flex"
+                    style={{
+                        transform: `translateX(-${current * 100}%)`,
+                        transition: "transform 0.42s cubic-bezier(0.22,1,0.36,1)",
+                    }}
+                >
+                    {items.map((item: any, i: number) => (
+                        <div
+                            key={item._id || i}
+                            className="w-full flex-shrink-0"
+                        >
+                            <PortfolioItemResolver item={item} index={i} />
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            {/* Arrow nav */}
+            <div className="flex items-center justify-between mt-5 px-1">
+                {/* Prev */}
+                <button
+                    onClick={prev}
+                    disabled={current === 0}
+                    aria-label="Previous"
+                    className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 active:scale-90 disabled:opacity-30"
+                    style={{
+                        background: current === 0 ? "rgba(124,58,237,0.07)" : "linear-gradient(135deg,#7C3AED,#6D28D9)",
+                        border: "1px solid rgba(124,58,237,0.2)",
+                        boxShadow: current === 0 ? "none" : "0 4px 14px rgba(124,58,237,0.35)",
+                    }}
+                >
+                    <ChevronLeft size={18} color={current === 0 ? "#7C3AED" : "white"} />
+                </button>
+
+                {/* Dot indicators */}
+                <div className="flex items-center gap-2">
+                    {items.map((_, i) => (
+                        <button
+                            key={i}
+                            onClick={() => setCurrent(i)}
+                            aria-label={`Go to slide ${i + 1}`}
+                            className="transition-all duration-300"
+                            style={{
+                                width: i === current ? "24px" : "8px",
+                                height: "8px",
+                                borderRadius: "999px",
+                                background: i === current
+                                    ? "linear-gradient(90deg,#7C3AED,#A78BFA)"
+                                    : "rgba(124,58,237,0.2)",
+                                border: "none",
+                                padding: 0,
+                                cursor: "pointer",
+                            }}
+                        />
+                    ))}
+                </div>
+
+                {/* Next */}
+                <button
+                    onClick={next}
+                    disabled={current === items.length - 1}
+                    aria-label="Next"
+                    className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 active:scale-90 disabled:opacity-30"
+                    style={{
+                        background: current === items.length - 1 ? "rgba(124,58,237,0.07)" : "linear-gradient(135deg,#7C3AED,#6D28D9)",
+                        border: "1px solid rgba(124,58,237,0.2)",
+                        boxShadow: current === items.length - 1 ? "none" : "0 4px 14px rgba(124,58,237,0.35)",
+                    }}
+                >
+                    <ChevronRight size={18} color={current === items.length - 1 ? "#7C3AED" : "white"} />
+                </button>
+            </div>
+
+            {/* Slide counter */}
+            <p className="text-center mt-3 font-dm text-[12px] font-medium" style={{ color: "rgba(124,58,237,0.6)" }}>
+                {current + 1} / {items.length}
+            </p>
+        </div>
+    );
+}
+
 export default function PortfolioSection() {
     const portfolioItems = useQuery(api.portfolio.listVisible);
 
@@ -244,12 +361,20 @@ export default function PortfolioSection() {
                     </p>
                 </motion.div>
 
-                {/* 2×2 grid — 1 col on mobile */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
+                {/* ── Mobile: slider | Desktop: 2×2 grid ── */}
+
+                {/* Mobile slider (hidden on md+) */}
+                <div className="block md:hidden">
+                    <MobileSlider items={displayItems} />
+                </div>
+
+                {/* Desktop 2×2 grid (hidden below md) */}
+                <div className="hidden md:grid md:grid-cols-2 gap-6">
                     {displayItems.map((item: any, i: number) => (
                         <PortfolioItemResolver key={item._id || i} item={item} index={i} />
                     ))}
                 </div>
+
             </div>
         </section>
     );

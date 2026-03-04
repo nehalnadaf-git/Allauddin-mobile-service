@@ -35,13 +35,10 @@ export default function ServicesPage() {
     // Directly open WhatsApp with the specific service pre-filled
     const handleBookRepair = (service: any) => {
         const num = settings?.whatsappNumber?.replace(/[^0-9]/g, "") || "916363278962";
-        const price = service.startingPrice
-            ? `\nStarting Price: Rs.${service.startingPrice}`
-            : "";
         const msg = [
             `*Repair Booking Request*`,
             ``,
-            `*Service:* ${service.name}${price}`,
+            `*Service:* ${service.name}`,
             ``,
             `Please confirm my booking slot. Thank you!`,
         ].join("\n");

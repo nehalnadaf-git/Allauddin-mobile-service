@@ -39,32 +39,6 @@ export default function Footer() {
     return (
         <footer className="relative overflow-hidden text-white">
 
-            {/* ── Footer CTA Band ── */}
-            <div
-                className="relative overflow-hidden"
-                style={{ background: "linear-gradient(135deg, #7C3AED 0%, #1A1035 100%)" }}
-            >
-                {/* Noise */}
-                <div className="absolute inset-0 pointer-events-none opacity-[0.03]"
-                    style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")", backgroundSize: "200px 200px" }} />
-                <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(circle at 80% 20%, rgba(167,139,250,0.15) 0%, transparent 50%)" }} />
-
-                <div className="container-max mx-auto px-4 py-[80px] md:py-[80px] text-center relative z-10">
-                    <h2 className="font-bricolage font-bold text-[26px] md:text-[32px] text-white mb-4" style={{ letterSpacing: "-0.01em" }}>
-                        Get Your Device Fixed Today
-                    </h2>
-                    <p className="font-dm text-[17px] mb-8 max-w-[480px] mx-auto" style={{ color: "rgba(255,255,255,0.85)" }}>
-                        Walk in or message us on WhatsApp. Same-day repairs, genuine parts, warranty included.
-                    </p>
-                    <button
-                        onClick={openRepairModal}
-                        className="inline-flex items-center justify-center bg-white font-poppins font-semibold text-[15px] px-10 py-4 rounded-full transition-all hover:-translate-y-0.5 active:scale-95"
-                        style={{ color: "#7C3AED", boxShadow: "0 4px 14px rgba(0,0,0,0.2)" }}
-                    >
-                        Book a Repair Now
-                    </button>
-                </div>
-            </div>
 
             {/* ── Main Footer ── */}
             <div

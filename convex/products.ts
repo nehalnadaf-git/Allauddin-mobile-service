@@ -58,6 +58,10 @@ export const create = mutation({
         displayOrder: v.number(),
     },
     handler: async (ctx, args) => {
+        const existing = await ctx.db.query("products").collect();
+        if (existing.length >= 15) {
+            throw new Error("Limit reached: You can only have up to 15 accessories.");
+        }
         return await ctx.db.insert("products", {
             ...args,
             isVisible: true,

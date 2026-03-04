@@ -37,6 +37,10 @@ export const create = mutation({
         displayOrder: v.number(),
     },
     handler: async (ctx, args) => {
+        const existing = await ctx.db.query("services").collect();
+        if (existing.length >= 15) {
+            throw new Error("Limit reached: You can only have up to 15 services.");
+        }
         return await ctx.db.insert("services", {
             ...args,
             isVisible: true,

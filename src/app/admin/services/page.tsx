@@ -40,10 +40,28 @@ export default function ServicesAdminPage() {
         const s = (services as any[])?.find((x: any) => x._id === id); await remove({ id: id as any }); await log({ action: "Service Deleted", details: s?.name || "" }); toast("Deleted!", "success"); setDel(null);
     };
 
+    const count = services?.length ?? 0;
+    const atLimit = count >= 15;
+
     return (<div>
         <div className="flex items-center justify-between mb-6">
-            <h1 className="font-poppins font-bold text-2xl text-deep-text">Services</h1>
-            <button onClick={openNew} className="flex items-center gap-2 px-4 py-2 bg-primary hover:bg-hover-blue text-white text-sm font-poppins font-semibold rounded-xl"><Plus size={16} />Add Service</button>
+            <div>
+                <h1 className="font-poppins font-bold text-2xl text-deep-text">Services</h1>
+                <p className="font-dm text-xs mt-0.5" style={{ color: atLimit ? "#EF4444" : "#9CA3AF" }}>
+                    {count}/15 services used{atLimit ? " — Limit reached" : ""}
+                </p>
+            </div>
+            <button
+                onClick={openNew}
+                disabled={atLimit}
+                title={atLimit ? "Maximum 15 services allowed" : "Add a new service"}
+                className="flex items-center gap-2 px-4 py-2 text-white text-sm font-poppins font-semibold rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                style={{ background: atLimit ? "#9CA3AF" : undefined }}
+                onMouseEnter={e => { if (!atLimit) (e.currentTarget as HTMLElement).style.background = "#6D28D9"; }}
+                onMouseLeave={e => { if (!atLimit) (e.currentTarget as HTMLElement).style.background = ""; }}
+            >
+                <Plus size={16} />{atLimit ? "Limit Reached (15/15)" : "Add Service"}
+            </button>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {(services as any[])?.map((s: any) => (<div key={s._id} className={`bg-white rounded-xl card-shadow p-5 ${!s.isVisible ? "opacity-60" : ""}`}>

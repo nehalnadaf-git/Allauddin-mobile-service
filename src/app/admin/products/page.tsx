@@ -97,12 +97,26 @@ export default function ProductsPage() {
 
     const getCategoryName = (catId: string) => (categories as any[])?.find((c: any) => c._id === catId)?.name || "Unknown";
 
+    const count = products?.length ?? 0;
+    const atLimit = count >= 15;
+
     return (
         <div>
             <div className="flex items-center justify-between mb-6">
-                <h1 className="font-poppins font-bold text-2xl text-deep-text">Products</h1>
-                <button onClick={openCreate} className="flex items-center gap-2 px-4 py-2 bg-primary hover:bg-hover-blue text-white text-sm font-poppins font-semibold rounded-xl transition-all">
-                    <Plus size={16} /> Add Product
+                <div>
+                    <h1 className="font-poppins font-bold text-2xl text-deep-text">Products</h1>
+                    <p className="font-dm text-xs mt-0.5" style={{ color: atLimit ? "#EF4444" : "#9CA3AF" }}>
+                        {count}/15 accessories used{atLimit ? " — Limit reached" : ""}
+                    </p>
+                </div>
+                <button
+                    onClick={openCreate}
+                    disabled={atLimit}
+                    title={atLimit ? "Maximum 15 accessories allowed" : "Add a new product"}
+                    className="flex items-center gap-2 px-4 py-2 text-white text-sm font-poppins font-semibold rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                    style={{ background: atLimit ? "#9CA3AF" : "#7C3AED" }}
+                >
+                    <Plus size={16} />{atLimit ? "Limit Reached (15/15)" : "Add Product"}
                 </button>
             </div>
 

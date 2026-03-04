@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, CheckCircle2, Layers } from "lucide-react";
 import { useQuery } from "@/lib/mockBackend";
 import { api } from "@/lib/mockBackend";
+import { useStorageUrl } from "@/lib/hooks/useStorageUrl";
 
 const PLACEHOLDERS = [
     {
@@ -173,6 +174,18 @@ function PortfolioCard({ item, index }: { item: any; index: number }) {
     );
 }
 
+/** Resolves Convex storage IDs → CDN URLs and passes them into PortfolioCard */
+function PortfolioItemResolver({ item, index }: { item: any; index: number }) {
+    const beforeUrl = useStorageUrl(item.beforeImageStorageId);
+    const afterUrl = useStorageUrl(item.afterImageStorageId);
+    const resolved = {
+        ...item,
+        imageUrlBefore: item.imageUrlBefore ?? beforeUrl,
+        imageUrlAfter: item.imageUrlAfter ?? afterUrl,
+    };
+    return <PortfolioCard item={resolved} index={index} />;
+}
+
 export default function PortfolioSection() {
     const portfolioItems = useQuery(api.portfolio.listVisible);
 
@@ -234,7 +247,7 @@ export default function PortfolioSection() {
                 {/* 2×2 grid — 1 col on mobile */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
                     {displayItems.map((item: any, i: number) => (
-                        <PortfolioCard key={item._id || i} item={item} index={i} />
+                        <PortfolioItemResolver key={item._id || i} item={item} index={i} />
                     ))}
                 </div>
             </div>

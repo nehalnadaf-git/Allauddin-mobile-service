@@ -20,14 +20,13 @@ export default function CartDrawer() {
 
     const handleUpiOrder = () => {
         if (!settings || items.length === 0) return;
-        const { whatsappLink, upiLink } = buildUpiOrderLink(
+        const { whatsappLink } = buildUpiOrderLink(
             settings.whatsappNumber,
             items,
             totalAmount,
             settings.upiId
         );
         window.open(whatsappLink, "_blank");
-        setTimeout(() => { window.location.href = upiLink; }, 500);
     };
 
     // Separate paid items and their free BOGO partners

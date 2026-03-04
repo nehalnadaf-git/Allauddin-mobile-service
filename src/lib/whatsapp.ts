@@ -11,7 +11,12 @@ export function buildRepairLink(phone: string): string {
  * Builds a structured, split WhatsApp message that clearly separates
  * Repair Services from Accessories.
  */
-function buildSplitMessage(items: CartItem[], total: number, paymentMethod: string): string {
+function buildSplitMessage(
+    items: CartItem[],
+    total: number,
+    paymentMethod: string,
+    upiDetails?: { upiId: string; amount: number }
+): string {
     const services = items.filter(i => i.itemType === "service");
     const products = items.filter(i => i.itemType === "product" && !i.isFreeItem);
 
@@ -44,13 +49,22 @@ function buildSplitMessage(items: CartItem[], total: number, paymentMethod: stri
         lines.push(`\n*Accessories Total: Rs.${total}*`);
     }
 
-    // ── Payment ──
-    if (services.length > 0 && products.length === 0) {
-        // Services-only cart: no accessory total
+    // ── Payment Section ──
+    if (upiDetails) {
+        // UPI payment — embed the payment link in the message
+        const { upiId, amount } = upiDetails;
+        const upiLink = `upi://pay?pa=${encodeURIComponent(upiId)}&am=${amount}&cu=INR&tn=Order+Payment`;
+        lines.push("\n*PAYMENT*");
+        lines.push(`Method: UPI`);
+        lines.push(`Amount: Rs.${amount}`);
+        lines.push(`Pay here: ${upiLink}`);
+    } else if (services.length > 0 && products.length === 0) {
         lines.push("\nThe repair price will be confirmed after diagnosis.");
+        lines.push(`Payment: ${paymentMethod}`);
+    } else {
+        lines.push(`\nPayment: ${paymentMethod}`);
     }
 
-    lines.push(`Payment: ${paymentMethod}`);
     lines.push("\nPlease confirm my request!");
 
     return lines.join("\n");
@@ -73,15 +87,18 @@ export function buildUpiLink(
     return `upi://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(name)}&am=${amount}&cu=INR&tn=Order+Request`;
 }
 
+/**
+ * Builds a WhatsApp link with the UPI payment link embedded in the message body.
+ * Returns only whatsappLink — no separate redirect needed.
+ */
 export function buildUpiOrderLink(
     phone: string,
     items: CartItem[],
     total: number,
     upiId: string,
-): { whatsappLink: string; upiLink: string } {
-    const message = buildSplitMessage(items, total, "UPI (paid)");
+): { whatsappLink: string } {
+    const message = buildSplitMessage(items, total, "UPI", { upiId, amount: total });
     return {
         whatsappLink: `https://wa.me/${phone.replace(/[^0-9]/g, "")}?text=${encodeURIComponent(message)}`,
-        upiLink: buildUpiLink(upiId, total),
     };
 }

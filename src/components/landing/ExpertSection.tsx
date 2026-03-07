@@ -34,16 +34,16 @@ export default function ExpertSection() {
                             <div className="h-1.5 w-full bg-gradient-to-r from-violet-400 via-violet-500 to-indigo-500" />
 
                             {/* Profile image */}
-                            <div className="relative" style={{ height: "380px" }}>
+                            <div className="relative h-[380px] sm:h-[420px] lg:h-[460px]">
                                 <img
                                     src="/profile/profile-image.png"
                                     alt="Allauddin Nadaf - Expert Mobile Repair Specialist"
-                                    className="w-full h-full object-cover object-top"
+                                    className="w-full h-full object-cover object-[center_20%]"
                                 />
                                 {/* Gradient fade at bottom */}
                                 <div
-                                    className="absolute bottom-0 left-0 right-0 h-44"
-                                    style={{ background: "linear-gradient(to top, #1A1035 30%, transparent)" }}
+                                    className="absolute bottom-0 left-0 right-0 h-28 sm:h-36"
+                                    style={{ background: "linear-gradient(to top, #1A1035 5%, transparent 100%)" }}
                                 />
                             </div>
 

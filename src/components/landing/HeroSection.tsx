@@ -34,8 +34,28 @@ export default function HeroSection() {
     return (
         <section
             className="relative w-full min-h-[100svh] overflow-hidden flex items-center"
-            style={{ background: "#F5F3FF" }}
+            style={{ background: "#F8F7FF" }}
         >
+            {/* ── Background Image ── */}
+            <div
+                className="absolute inset-0 pointer-events-none z-0 flex items-center justify-center opacity-20"
+                style={{
+                    maskImage: "radial-gradient(circle at center, black 20%, transparent 60%)",
+                    WebkitMaskImage: "radial-gradient(circle at center, black 20%, transparent 60%)"
+                }}
+            >
+                <div
+                    className="w-full h-full max-w-[600px] max-h-[600px]"
+                    style={{
+                        backgroundImage: "url('/hero-repair-bg.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: "center",
+                        filter: "blur(2px) grayscale(10%) contrast(120%)"
+                    }}
+                />
+            </div>
+
             {/* ── Atmospheric gradient bloom ── */}
             <div
                 className="absolute inset-0 pointer-events-none"

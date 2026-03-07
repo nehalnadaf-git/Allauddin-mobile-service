@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Wrench, Star, ArrowRight, Zap } from "lucide-react";
+import { Wrench, Star, ArrowRight } from "lucide-react";
 import { useQuery } from "@/lib/mockBackend";
 import { api } from "@/lib/mockBackend";
 import { useRepairModal } from "@/lib/hooks/useRepairModal";

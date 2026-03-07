@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { motion, Variants } from "framer-motion";
 import { useRepairModal } from "@/lib/hooks/useRepairModal";
 import Link from "next/link";
-import { ShieldCheck, Monitor, Cpu, Zap, Crosshair, CheckCircle } from "lucide-react";
+import { ShieldCheck } from "lucide-react";
 
 
 

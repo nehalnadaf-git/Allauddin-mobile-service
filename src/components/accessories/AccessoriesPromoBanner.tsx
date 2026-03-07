@@ -32,7 +32,7 @@ export default function AccessoriesPromoBanner() {
 
     if (!banner || !banner.isVisible) return null;
 
-    const theme = themeStyles[banner.colorTheme || "blue"];
+
 
     return (
         <motion.div

@@ -40,7 +40,7 @@ export default function AdminGuidePage() {
                             <div>
                                 <p className="font-poppins font-semibold text-[14px] text-[#1F2937]">Keep titles short & punchy</p>
                                 <p className="font-dm text-[13px] text-[#6B7280] mt-1">
-                                    Long titles will truncate or break on mobile devices. Examples: "Screen Replacement" is better than "Complete LCD Touch Screen Replacement Service".
+                                    Long titles will truncate or break on mobile devices. Examples: &quot;Screen Replacement&quot; is better than &quot;Complete LCD Touch Screen Replacement Service&quot;.
                                 </p>
                             </div>
                         </div>
@@ -69,7 +69,7 @@ export default function AdminGuidePage() {
                             <div>
                                 <p className="font-poppins font-semibold text-[14px] text-[#1F2937]">Avoid Text in Images</p>
                                 <p className="font-dm text-[13px] text-[#6B7280] mt-1">
-                                    Do not "hardcode" textual information into banners. The website overlays text automatically for better SEO and mobile scaling.
+                                    Do not &quot;hardcode&quot; textual information into banners. The website overlays text automatically for better SEO and mobile scaling.
                                 </p>
                             </div>
                         </div>

@@ -27,7 +27,6 @@ const platformColors: Record<string, string> = {
 
 export default function Footer() {
     const settings = useQuery(api.settings.get);
-    const { openRepairModal } = useRepairModal();
 
     type SocialLink = { platform: string; url: string; isVisible: boolean; displayOrder: number };
     const visibleLinks: SocialLink[] = (settings?.socialLinks as SocialLink[] | undefined)

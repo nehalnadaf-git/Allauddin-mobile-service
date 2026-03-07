@@ -1,0 +1,8 @@
+﻿6aabeb0 Admin panel full dark theme update with fixes
+5508c6f Update footer brand section to match premium theme and add owner profile
+ff28f6f Fix RepairBookingModal clipping/layout issues on web
+5c1d466 feat: redesign cart drawer - full name display, clean badges, better mobile layout
+45386c6 fix: remove starting price from repair services in cart WhatsApp message
+d267bd3 feat: Book Repair on home page opens WhatsApp with service pre-filled message
+d205ec4 feat: portfolio slider for mobile and removed starting price from booking message
+62ee8d8 feat: simplify accessories tags - remove category filters and badges, keep only offer filters and badges

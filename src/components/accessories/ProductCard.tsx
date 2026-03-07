@@ -26,7 +26,7 @@ interface ProductCardProps {
     index: number;
 }
 
-export default function ProductCard({ product, category, index }: ProductCardProps) {
+export default function ProductCard({ product, index }: ProductCardProps) {
     const { addItem } = useCart();
     const [justAdded, setJustAdded] = useState(false);
     const [hovered, setHovered] = useState(false);

@@ -189,21 +189,9 @@ export default function Navbar() {
                                 initial={{ opacity: 0, y: -12 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.05, duration: 0.4 }}
-                                className="relative z-10 flex items-center justify-between px-6 pt-8 pb-6"
+                                className="relative z-10 flex items-center justify-end px-6 pt-8 pb-6"
                                 style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}
                             >
-                                <div className="flex items-center gap-3.5">
-                                    <div
-                                        className="w-12 h-12 rounded-[16px] overflow-hidden flex-shrink-0"
-                                        style={{ boxShadow: "0 4px 20px rgba(124,58,237,0.45), 0 2px 6px rgba(0,0,0,0.2)", border: "1.5px solid rgba(167,139,250,0.3)" }}
-                                    >
-                                        <img src="/profile/profile-image.png" alt="Allauddin Nadaf" className="w-full h-full object-cover object-top" />
-                                    </div>
-                                    <div>
-                                        <p className="font-bricolage font-bold text-white text-[17px] leading-none tracking-tight">Allauddin Nadaf</p>
-                                        <p className="font-dm text-[12px] mt-1" style={{ color: "rgba(167,139,250,0.8)" }}>Founder · Master Technician</p>
-                                    </div>
-                                </div>
                                 <button
                                     onClick={() => setMenuOpen(false)}
                                     className="w-10 h-10 rounded-full flex items-center justify-center transition-all active:scale-90"

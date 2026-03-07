@@ -341,35 +341,30 @@ export default function RepairBookingModal() {
     return (
         <AnimatePresence>
             {isRepairModalOpen && (
-                <>
+                <motion.div
+                    className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-0 sm:p-4"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.25 }}
+                >
                     {/* Backdrop */}
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.25 }}
-                        className="fixed inset-0 z-50"
+                    <div
+                        className="absolute inset-0"
                         style={{ background: "rgba(10,5,30,0.6)", backdropFilter: "blur(8px)" }}
                         onClick={handleClose}
                     />
 
                     {/* Bottom sheet on mobile / centered dialog on desktop */}
                     <motion.div
-                        initial={{ opacity: 0, y: 80 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 60 }}
+                        initial={{ y: 80, scale: 0.96 }}
+                        animate={{ y: 0, scale: 1 }}
+                        exit={{ y: 60, scale: 0.96 }}
                         transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                        className={[
-                            "fixed z-50 flex flex-col",
-                            // Mobile: full-width bottom sheet
-                            "inset-x-0 bottom-0 rounded-t-[28px]",
-                            // Desktop sm+: floating centered card
-                            "sm:inset-auto sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:w-[480px] sm:rounded-[28px]",
-                        ].join(" ")}
+                        className="relative z-10 w-full sm:w-[480px] flex flex-col bg-white rounded-t-[28px] sm:rounded-[28px] overflow-hidden"
                         style={{
-                            background: "#FFFFFF",
                             boxShadow: "0 -8px 48px rgba(124,58,237,0.2), 0 24px 64px rgba(0,0,0,0.35)",
-                            maxHeight: "85dvh",
+                            maxHeight: "90vh",
                         }}
                         onClick={e => e.stopPropagation()}
                     >
@@ -452,7 +447,7 @@ export default function RepairBookingModal() {
                         </div>
 
                         {/* Step content — scrollable */}
-                        <div className="flex-1 overflow-y-auto px-5 py-5" style={{ overscrollBehavior: "contain" }}>
+                        <div className="flex-1 overflow-y-auto px-5 py-5 min-h-0" style={{ overscrollBehavior: "contain" }}>
                             <AnimatePresence mode="wait" custom={direction}>
                                 <motion.div
                                     key={step}
@@ -510,7 +505,7 @@ export default function RepairBookingModal() {
                         {/* Safe area bottom padding for iOS */}
                         <div className="flex-shrink-0 sm:hidden" style={{ paddingBottom: "env(safe-area-inset-bottom, 12px)" }} />
                     </motion.div>
-                </>
+                </motion.div>
             )}
         </AnimatePresence>
     );

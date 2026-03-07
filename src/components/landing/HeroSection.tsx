@@ -52,7 +52,7 @@ export default function HeroSection() {
                         backgroundSize: "contain",
                         backgroundRepeat: "no-repeat",
                         backgroundPosition: "center",
-                        filter: "contrast(110%)"
+                        filter: "contrast(110%) blur(4px)"
                     }}
                 />
             </div>

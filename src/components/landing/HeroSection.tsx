@@ -38,20 +38,21 @@ export default function HeroSection() {
         >
             {/* ── Background Image ── */}
             <div
-                className="absolute inset-0 pointer-events-none z-0 flex items-center justify-center opacity-20"
+                className="absolute inset-0 pointer-events-none z-0 flex items-center justify-center opacity-30"
                 style={{
                     maskImage: "radial-gradient(circle at center, black 20%, transparent 60%)",
                     WebkitMaskImage: "radial-gradient(circle at center, black 20%, transparent 60%)"
                 }}
             >
                 <div
+                    id="hero-bg-layer"
                     className="w-full h-full max-w-[600px] max-h-[600px]"
                     style={{
                         backgroundImage: "url('/hero-repair-bg.png')",
                         backgroundSize: "contain",
                         backgroundRepeat: "no-repeat",
                         backgroundPosition: "center",
-                        filter: "blur(2px) grayscale(10%) contrast(120%)"
+                        filter: "contrast(110%) blur(1px)"
                     }}
                 />
             </div>

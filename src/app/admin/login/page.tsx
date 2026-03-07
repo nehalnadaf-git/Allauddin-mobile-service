@@ -34,7 +34,7 @@ export default function AdminLoginPage() {
     return (
         <div
             className="min-h-screen flex items-center justify-center p-4"
-            style={{ background: "linear-gradient(160deg, #0F0A1E 0%, white 50%, #2D1B69 100%)" }}
+            style={{ background: "linear-gradient(160deg, #0F0A1E 0%, #1A1035 50%, #2D1B69 100%)" }}
         >
             {/* Ambient orbs */}
             <div className="fixed top-0 right-0 w-[600px] h-[600px] rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(124,58,237,0.12) 0%, transparent 65%)", transform: "translate(30%,-30%)" }} />
@@ -54,7 +54,7 @@ export default function AdminLoginPage() {
                     {/* Dark header */}
                     <div
                         className="relative px-8 pt-8 pb-6 overflow-hidden"
-                        style={{ background: "linear-gradient(135deg, white 0%, #2D1B69 100%)" }}
+                        style={{ background: "linear-gradient(135deg, #1A1035 0%, #2D1B69 100%)" }}
                     >
                         <div className="absolute top-0 right-0 w-32 h-32 rounded-full" style={{ background: "radial-gradient(circle, rgba(167,139,250,0.2) 0%, transparent 70%)", transform: "translate(30%,-30%)" }} />
 
@@ -84,7 +84,7 @@ export default function AdminLoginPage() {
                     </div>
 
                     {/* White form area */}
-                    <div className="bg-[rgba(255,255,255,0.03)] px-8 py-7">
+                    <div className="bg-white px-8 py-7">
                         <form onSubmit={handleSubmit} className="space-y-4">
                             {error && (
                                 <motion.div
@@ -112,9 +112,9 @@ export default function AdminLoginPage() {
                                         required
                                         className="w-full pl-10 pr-4 py-3 rounded-xl text-[14px] font-dm outline-none transition-all"
                                         style={{
-                                            background: "#0F0A1E",
+                                            background: "#F8F7FF",
                                             border: "1.5px solid rgba(124,58,237,0.15)",
-                                            color: "white",
+                                            color: "#1A1035",
                                         }}
                                         onFocus={(e) => { e.target.style.borderColor = "#7C3AED"; e.target.style.boxShadow = "0 0 0 3px rgba(124,58,237,0.1)"; }}
                                         onBlur={(e) => { e.target.style.borderColor = "rgba(124,58,237,0.15)"; e.target.style.boxShadow = "none"; }}
@@ -137,9 +137,9 @@ export default function AdminLoginPage() {
                                         required
                                         className="w-full pl-10 pr-12 py-3 rounded-xl text-[14px] font-dm outline-none transition-all"
                                         style={{
-                                            background: "#0F0A1E",
+                                            background: "#F8F7FF",
                                             border: "1.5px solid rgba(124,58,237,0.15)",
-                                            color: "white",
+                                            color: "#1A1035",
                                         }}
                                         onFocus={(e) => { e.target.style.borderColor = "#7C3AED"; e.target.style.boxShadow = "0 0 0 3px rgba(124,58,237,0.1)"; }}
                                         onBlur={(e) => { e.target.style.borderColor = "rgba(124,58,237,0.15)"; e.target.style.boxShadow = "none"; }}

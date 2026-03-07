@@ -126,7 +126,7 @@ export default function ProductsPage() {
         <div>
             <div className="flex items-center justify-between mb-6">
                 <div>
-                    <h1 className="font-poppins font-bold text-2xl text-white">Products</h1>
+                    <h1 className="font-poppins font-bold text-2xl text-deep-text">Products</h1>
                     <p className="font-dm text-xs mt-0.5" style={{ color: atLimit ? "#EF4444" : "#9CA3AF" }}>
                         {count}/15 accessories used{atLimit ? " — Limit reached" : ""}
                     </p>
@@ -145,9 +145,9 @@ export default function ProductsPage() {
             {/* Filters */}
             <div className="flex flex-col sm:flex-row gap-3 mb-6">
                 <input type="text" placeholder="Search products..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}
-                    className="flex-1 px-4 py-2.5 rounded-xl border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)] focus:border-[#A78BFA] focus:ring-2 focus:ring-primary/20 outline-none text-sm font-dm" />
+                    className="flex-1 px-4 py-2.5 rounded-xl border border-border-grey bg-white focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none text-sm font-dm" />
                 <select value={filterCategory} onChange={(e) => setFilterCategory(e.target.value)}
-                    className="px-4 py-2.5 rounded-xl border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)] text-sm font-dm focus:border-[#A78BFA] outline-none">
+                    className="px-4 py-2.5 rounded-xl border border-border-grey bg-white text-sm font-dm focus:border-primary outline-none">
                     <option value="">All Categories</option>
                     {(categories as any[])?.map((c: any) => <option key={c._id} value={c._id}>{c.name}</option>)}
                 </select>
@@ -156,14 +156,14 @@ export default function ProductsPage() {
             {/* Product Cards Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {(filtered as any[]).map((p: any) => (
-                    <div key={p._id} className={`bg-[rgba(255,255,255,0.03)] rounded-xl shadow-[0_4px_24px_rgba(0,0,0,0.2)] border border-[rgba(255,255,255,0.08)] backdrop-blur-xl p-4 ${!p.isVisible ? "opacity-60" : ""}`}>
+                    <div key={p._id} className={`bg-white rounded-xl card-shadow p-4 ${!p.isVisible ? "opacity-60" : ""}`}>
                         <div className="flex items-start gap-3">
-                            <div className="w-14 h-14 rounded-xl bg-[rgba(255,255,255,0.06)] flex items-center justify-center flex-shrink-0">
-                                <Package size={20} className="text-white/60" />
+                            <div className="w-14 h-14 rounded-xl bg-light-grey flex items-center justify-center flex-shrink-0">
+                                <Package size={20} className="text-muted" />
                             </div>
                             <div className="flex-1 min-w-0">
                                 <div className="flex items-center gap-2 flex-wrap">
-                                    <p className="font-dm font-medium text-sm text-white truncate">{p.name}</p>
+                                    <p className="font-dm font-medium text-sm text-deep-text truncate">{p.name}</p>
                                     {p.offerType === "bogo" && (
                                         <span className="text-[10px] font-poppins font-bold px-2 py-0.5 rounded-full text-white" style={{ background: "linear-gradient(135deg,#F59E0B,#D97706)" }}>BUY 1 GET 1</span>
                                     )}
@@ -171,65 +171,65 @@ export default function ProductsPage() {
                                         <span className="text-[10px] font-poppins font-bold px-2 py-0.5 rounded-full text-white" style={{ background: "linear-gradient(135deg,#7C3AED,#6D28D9)" }}>{p.discountPercentage}% OFF</span>
                                     )}
                                 </div>
-                                <p className="text-xs text-white/60 font-dm">{getCategoryName(p.categoryId)}</p>
+                                <p className="text-xs text-muted font-dm">{getCategoryName(p.categoryId)}</p>
                                 <p className="font-poppins font-bold text-sm text-primary mt-1">{p.priceRange || `₹${p.price}`}</p>
                             </div>
                         </div>
-                        <div className="flex items-center gap-2 mt-3 pt-3 border-t border-[rgba(255,255,255,0.08)]">
+                        <div className="flex items-center gap-2 mt-3 pt-3 border-t border-border-grey">
                             <button onClick={() => toggleStock({ id: p._id })} className={`text-xs font-dm px-2 py-1 rounded-full ${p.isInStock ? "bg-success/10 text-success" : "bg-error/10 text-error"}`}>
                                 {p.isInStock ? "In Stock" : "Out of Stock"}
                             </button>
                             <div className="flex-1" />
-                            <button onClick={() => toggleVisibility({ id: p._id })} className="p-1.5 text-white/60 hover:text-white transition-colors">
+                            <button onClick={() => toggleVisibility({ id: p._id })} className="p-1.5 text-muted hover:text-deep-text transition-colors">
                                 {p.isVisible ? <Eye size={14} /> : <EyeOff size={14} />}
                             </button>
-                            <button onClick={() => openEdit(p)} className="p-1.5 text-white/60 hover:text-primary transition-colors"><Edit2 size={14} /></button>
-                            <button onClick={() => setDeleteConfirm(p._id)} className="p-1.5 text-white/60 hover:text-error transition-colors"><Trash2 size={14} /></button>
+                            <button onClick={() => openEdit(p)} className="p-1.5 text-muted hover:text-primary transition-colors"><Edit2 size={14} /></button>
+                            <button onClick={() => setDeleteConfirm(p._id)} className="p-1.5 text-muted hover:text-error transition-colors"><Trash2 size={14} /></button>
                         </div>
                     </div>
                 ))}
             </div>
-            {filtered.length === 0 && <p className="text-center py-12 text-white/60 font-dm text-sm">No products found</p>}
+            {filtered.length === 0 && <p className="text-center py-12 text-muted font-dm text-sm">No products found</p>}
 
             {/* Create/Edit Modal */}
             <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)} title={editingId ? "Edit Product" : "Add Product"}>
                 <div className="space-y-3 max-h-[70vh] overflow-y-auto">
                     <div>
-                        <label className="block font-dm text-sm font-medium text-white mb-1">Name *</label>
-                        <input type="text" value={name} onChange={(e) => setName(e.target.value)} className="w-full px-4 py-2.5 rounded-xl border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.06)] focus:border-[#A78BFA] focus:ring-2 focus:ring-primary/20 outline-none text-sm font-dm" />
+                        <label className="block font-dm text-sm font-medium text-deep-text mb-1">Name *</label>
+                        <input type="text" value={name} onChange={(e) => setName(e.target.value)} className="w-full px-4 py-2.5 rounded-xl border border-border-grey bg-light-grey focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none text-sm font-dm" />
                     </div>
                     <div>
-                        <label className="block font-dm text-sm font-medium text-white mb-1">Category *</label>
-                        <select value={categoryId} onChange={(e) => setCategoryId(e.target.value)} className="w-full px-4 py-2.5 rounded-xl border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.06)] focus:border-[#A78BFA] outline-none text-sm font-dm">
+                        <label className="block font-dm text-sm font-medium text-deep-text mb-1">Category *</label>
+                        <select value={categoryId} onChange={(e) => setCategoryId(e.target.value)} className="w-full px-4 py-2.5 rounded-xl border border-border-grey bg-light-grey focus:border-primary outline-none text-sm font-dm">
                             <option value="">Select category</option>
                             {(categories as any[])?.map((c: any) => <option key={c._id} value={c._id}>{c.name}</option>)}
                         </select>
                     </div>
                     <div className="grid grid-cols-2 gap-3">
                         <div>
-                            <label className="block font-dm text-sm font-medium text-white mb-1">Price (₹) *</label>
-                            <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} className="w-full px-4 py-2.5 rounded-xl border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.06)] focus:border-[#A78BFA] focus:ring-2 focus:ring-primary/20 outline-none text-sm font-dm" />
+                            <label className="block font-dm text-sm font-medium text-deep-text mb-1">Price (₹) *</label>
+                            <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} className="w-full px-4 py-2.5 rounded-xl border border-border-grey bg-light-grey focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none text-sm font-dm" />
                         </div>
                         <div>
-                            <label className="block font-dm text-sm font-medium text-white mb-1">Price Range</label>
-                            <input type="text" value={priceRange} onChange={(e) => setPriceRange(e.target.value)} placeholder="₹99 – ₹299" className="w-full px-4 py-2.5 rounded-xl border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.06)] focus:border-[#A78BFA] focus:ring-2 focus:ring-primary/20 outline-none text-sm font-dm" />
+                            <label className="block font-dm text-sm font-medium text-deep-text mb-1">Price Range</label>
+                            <input type="text" value={priceRange} onChange={(e) => setPriceRange(e.target.value)} placeholder="₹99 – ₹299" className="w-full px-4 py-2.5 rounded-xl border border-border-grey bg-light-grey focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none text-sm font-dm" />
                         </div>
                     </div>
                     <div>
-                        <label className="block font-dm text-sm font-medium text-white mb-1">Description</label>
-                        <textarea value={description} onChange={(e) => setDescription(e.target.value)} rows={2} className="w-full px-4 py-2.5 rounded-xl border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.06)] focus:border-[#A78BFA] focus:ring-2 focus:ring-primary/20 outline-none text-sm font-dm resize-none" />
+                        <label className="block font-dm text-sm font-medium text-deep-text mb-1">Description</label>
+                        <textarea value={description} onChange={(e) => setDescription(e.target.value)} rows={2} className="w-full px-4 py-2.5 rounded-xl border border-border-grey bg-light-grey focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none text-sm font-dm resize-none" />
                     </div>
                     <div>
-                        <label className="block font-dm text-sm font-medium text-white mb-1">Image (max 2MB)</label>
-                        <label className="flex items-center justify-center gap-2 w-full py-3 border-2 border-dashed border-[rgba(255,255,255,0.08)] rounded-xl cursor-pointer hover:border-primary transition-colors">
-                            <Upload size={16} className="text-white/60" />
-                            <span className="text-sm text-white/60 font-dm">{imageFile ? imageFile.name : "Choose file"}</span>
+                        <label className="block font-dm text-sm font-medium text-deep-text mb-1">Image (max 2MB)</label>
+                        <label className="flex items-center justify-center gap-2 w-full py-3 border-2 border-dashed border-border-grey rounded-xl cursor-pointer hover:border-primary transition-colors">
+                            <Upload size={16} className="text-muted" />
+                            <span className="text-sm text-muted font-dm">{imageFile ? imageFile.name : "Choose file"}</span>
                             <input type="file" accept="image/jpeg,image/png,image/webp" onChange={(e) => setImageFile(e.target.files?.[0] || null)} className="hidden" />
                         </label>
                     </div>
                     {/* ── Offer Section ── */}
-                    <div className="rounded-xl border border-[rgba(255,255,255,0.08)] p-4 space-y-3" style={{ background: "#FAFAFA" }}>
-                        <p className="font-poppins font-semibold text-sm text-white">Offer / Promotion</p>
+                    <div className="rounded-xl border border-border-grey p-4 space-y-3" style={{ background: "#FAFAFA" }}>
+                        <p className="font-poppins font-semibold text-sm text-deep-text">Offer / Promotion</p>
                         <div className="grid grid-cols-3 gap-2">
                             {(["none", "discount", "bogo"] as const).map(type => (
                                 <button
@@ -241,7 +241,7 @@ export default function ProductsPage() {
                                         background: offerType === type
                                             ? type === "bogo" ? "linear-gradient(135deg,#F59E0B,#D97706)"
                                                 : type === "discount" ? "linear-gradient(135deg,#7C3AED,#6D28D9)"
-                                                    : "white"
+                                                    : "#1A1035"
                                             : "white",
                                         color: offerType === type ? "white" : "#6B7280",
                                         borderColor: offerType === type ? "transparent" : "#E5E7EB",
@@ -254,18 +254,18 @@ export default function ProductsPage() {
                         {offerType === "discount" && (
                             <div className="flex items-center gap-3">
                                 <div className="flex-1">
-                                    <label className="block font-dm text-xs font-medium text-white mb-1">Discount %</label>
+                                    <label className="block font-dm text-xs font-medium text-deep-text mb-1">Discount %</label>
                                     <input
                                         type="number" min="1" max="99"
                                         value={discountPct}
                                         onChange={e => setDiscountPct(e.target.value)}
                                         placeholder="e.g. 20"
-                                        className="w-full px-3 py-2 rounded-xl border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)] focus:border-[#A78BFA] outline-none text-sm font-dm"
+                                        className="w-full px-3 py-2 rounded-xl border border-border-grey bg-white focus:border-primary outline-none text-sm font-dm"
                                     />
                                 </div>
                                 {discountPct && price && (
                                     <div className="text-center">
-                                        <p className="font-dm text-xs text-white/60">New Price</p>
+                                        <p className="font-dm text-xs text-muted">New Price</p>
                                         <p className="font-poppins font-bold text-primary text-sm">₹{calcDiscountedPrice()}</p>
                                     </div>
                                 )}
@@ -277,10 +277,10 @@ export default function ProductsPage() {
                     </div>
                     <div className="flex items-center gap-2">
                         <input type="checkbox" id="inStock" checked={isInStock} onChange={(e) => setIsInStock(e.target.checked)} className="rounded" />
-                        <label htmlFor="inStock" className="text-sm font-dm text-white">In Stock</label>
+                        <label htmlFor="inStock" className="text-sm font-dm text-deep-text">In Stock</label>
                     </div>
                     <button onClick={handleSave} disabled={!name.trim() || !categoryId || !price || isUploading}
-                        className="w-full py-3 bg-primary hover:hover:scale-[1.02] active:scale-[0.98] disabled:bg-border-grey text-white font-poppins font-semibold rounded-xl transition-all text-sm">
+                        className="w-full py-3 bg-primary hover:bg-hover-blue disabled:bg-border-grey text-white font-poppins font-semibold rounded-xl transition-all text-sm">
                         {isUploading ? "Uploading..." : editingId ? "Update" : "Create"}
                     </button>
                 </div>
@@ -288,9 +288,9 @@ export default function ProductsPage() {
 
             {/* Delete Confirm */}
             <Modal isOpen={!!deleteConfirm} onClose={() => setDeleteConfirm(null)} title="Delete Product">
-                <p className="font-dm text-sm text-white mb-4">Are you sure? This will permanently delete this product and its image.</p>
+                <p className="font-dm text-sm text-deep-text mb-4">Are you sure? This will permanently delete this product and its image.</p>
                 <div className="flex gap-3">
-                    <button onClick={() => setDeleteConfirm(null)} className="flex-1 py-2.5 bg-[rgba(255,255,255,0.06)] text-white font-poppins font-semibold rounded-xl text-sm">Cancel</button>
+                    <button onClick={() => setDeleteConfirm(null)} className="flex-1 py-2.5 bg-light-grey text-deep-text font-poppins font-semibold rounded-xl text-sm">Cancel</button>
                     <button onClick={() => deleteConfirm && handleDelete(deleteConfirm)} className="flex-1 py-2.5 bg-error hover:bg-error/90 text-white font-poppins font-semibold rounded-xl text-sm">Delete</button>
                 </div>
             </Modal>

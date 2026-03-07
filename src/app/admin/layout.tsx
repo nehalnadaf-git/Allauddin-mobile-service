@@ -58,10 +58,10 @@ function Sidebar({ onClose }: { onClose?: () => void }) {
             {/* Logo */}
             <div className="flex items-center gap-3 px-5 py-5 border-b" style={{ borderColor: "rgba(124,58,237,0.15)" }}>
                 <div
-                    className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0"
-                    style={{ border: "2px solid rgba(167,139,250,0.5)", boxShadow: "0 4px 16px rgba(124,58,237,0.4)" }}
+                    className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 font-bricolage font-bold text-base text-white"
+                    style={{ background: "linear-gradient(135deg, #7C3AED, #A78BFA)", boxShadow: "0 4px 16px rgba(124,58,237,0.4)" }}
                 >
-                    <img src="/profile/profile-image.png" alt="Allauddin MS" className="w-full h-full object-cover object-top" />
+                    A
                 </div>
                 <div className="min-w-0">
                     <p className="font-bricolage font-bold text-[14px] text-white truncate">Allauddin MS</p>
@@ -87,7 +87,7 @@ function Sidebar({ onClose }: { onClose?: () => void }) {
                         <div className="space-y-0.5">
                             {group.items.map((link) => {
                                 const Icon = link.icon;
-                                const active = isActive(link.href, (link as any).exact);
+                                const active = isActive(link.href, link.exact);
                                 return (
                                     <Link
                                         key={link.href}
@@ -171,10 +171,10 @@ function AdminLayoutInner({ children }: { children: React.ReactNode }) {
             <div className="min-h-screen flex items-center justify-center" style={{ background: "#0F0A1E" }}>
                 <div className="flex flex-col items-center gap-4">
                     <div
-                        className="w-16 h-16 rounded-full overflow-hidden flex-shrink-0 mb-2"
-                        style={{ border: "3px solid rgba(167,139,250,0.5)", boxShadow: "0 0 32px rgba(124,58,237,0.5)" }}
+                        className="w-12 h-12 rounded-2xl flex items-center justify-center font-bricolage font-bold text-xl text-white"
+                        style={{ background: "linear-gradient(135deg, #7C3AED, #A78BFA)", boxShadow: "0 0 32px rgba(124,58,237,0.5)" }}
                     >
-                        <img src="/profile/profile-image.png" alt="Loading" className="w-full h-full object-cover object-top" />
+                        A
                     </div>
                     <div className="w-6 h-6 border-2 rounded-full animate-spin" style={{ borderColor: "rgba(124,58,237,0.3)", borderTopColor: "#7C3AED" }} />
                 </div>
@@ -185,7 +185,7 @@ function AdminLayoutInner({ children }: { children: React.ReactNode }) {
     if (!isAuthenticated) return <AdminLoginPage />;
 
     return (
-        <div className="min-h-screen flex" style={{ background: "#0A051E" }}>
+        <div className="min-h-screen flex" style={{ background: "#F8F7FF" }}>
             {/* Desktop Sidebar */}
             <aside className="hidden lg:flex flex-col w-[240px] xl:w-[260px] fixed top-0 left-0 h-full z-40 shadow-2xl"
                 style={{ boxShadow: "4px 0 24px rgba(124,58,237,0.12)" }}>
@@ -221,10 +221,10 @@ function AdminLayoutInner({ children }: { children: React.ReactNode }) {
             {/* Main Area */}
             <div className="flex-1 flex flex-col min-h-screen lg:ml-[240px] xl:ml-[260px]">
                 {/* Top Header */}
-                <header className="sticky top-0 z-30 flex items-center gap-4 px-4 md:px-6 h-14 bg-[rgba(15,10,30,0.8)] backdrop-blur-xl border-b" style={{ borderColor: "rgba(255,255,255,0.05)" }}>
+                <header className="sticky top-0 z-30 flex items-center gap-4 px-4 md:px-6 h-14 bg-white border-b" style={{ borderColor: "rgba(124,58,237,0.1)", boxShadow: "0 1px 8px rgba(0,0,0,0.05)" }}>
                     <button
                         onClick={() => setMobileOpen(true)}
-                        className="p-2 rounded-xl transition-colors hover:bg-[rgba(255,255,255,0.1)] lg:hidden"
+                        className="p-2 rounded-xl transition-colors hover:bg-violet-50 lg:hidden"
                         style={{ color: "#7C3AED" }}
                     >
                         <Menu size={20} />
@@ -232,19 +232,19 @@ function AdminLayoutInner({ children }: { children: React.ReactNode }) {
 
                     <div className="flex items-center gap-2">
                         <Zap size={14} style={{ color: "#A78BFA" }} />
-                        <h1 className="font-poppins font-semibold text-[15px]" style={{ color: "white" }}>{pageTitle}</h1>
+                        <h1 className="font-poppins font-semibold text-[15px]" style={{ color: "#1A1035" }}>{pageTitle}</h1>
                     </div>
 
                     <div className="flex-1" />
 
                     {/* Search */}
-                    <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-xl" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(124,58,237,0.15)" }}>
+                    <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-xl" style={{ background: "#F5F3FF", border: "1px solid rgba(124,58,237,0.15)" }}>
                         <Search size={14} style={{ color: "#A78BFA" }} />
                         <span className="font-dm text-[13px]" style={{ color: "#9CA3AF" }}>Quick search...</span>
                     </div>
 
                     {/* Notification bell */}
-                    <button className="w-9 h-9 rounded-xl flex items-center justify-center transition-colors hover:bg-[rgba(255,255,255,0.1)]" style={{ color: "#7C3AED", border: "1px solid rgba(124,58,237,0.15)" }}>
+                    <button className="w-9 h-9 rounded-xl flex items-center justify-center transition-colors hover:bg-violet-50" style={{ color: "#7C3AED", border: "1px solid rgba(124,58,237,0.15)" }}>
                         <Bell size={16} />
                     </button>
                 </header>

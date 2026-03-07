@@ -75,35 +75,35 @@ export default function CategoriesPage() {
     return (
         <div>
             <div className="flex items-center justify-between mb-6">
-                <h1 className="font-poppins font-bold text-2xl text-white">Categories</h1>
-                <button onClick={openCreate} className="flex items-center gap-2 px-4 py-2 bg-primary hover:hover:scale-[1.02] active:scale-[0.98] text-white text-sm font-poppins font-semibold rounded-xl transition-all">
+                <h1 className="font-poppins font-bold text-2xl text-deep-text">Categories</h1>
+                <button onClick={openCreate} className="flex items-center gap-2 px-4 py-2 bg-primary hover:bg-hover-blue text-white text-sm font-poppins font-semibold rounded-xl transition-all">
                     <Plus size={16} /> Add Category
                 </button>
             </div>
 
-            <div className="bg-[rgba(255,255,255,0.03)] rounded-xl shadow-[0_4px_24px_rgba(0,0,0,0.2)] border border-[rgba(255,255,255,0.08)] backdrop-blur-xl overflow-hidden">
+            <div className="bg-white rounded-xl card-shadow overflow-hidden">
                 {categories && categories.length > 0 ? (
                     <div className="divide-y divide-border-grey">
                         {(categories as any[])?.map((cat: any) => (
-                            <div key={cat._id} className="flex items-center gap-4 px-5 py-4 hover:bg-[rgba(255,255,255,0.06)]/50 transition-colors">
-                                <GripVertical size={16} className="text-white/60/40 cursor-grab flex-shrink-0" />
+                            <div key={cat._id} className="flex items-center gap-4 px-5 py-4 hover:bg-light-grey/50 transition-colors">
+                                <GripVertical size={16} className="text-muted/40 cursor-grab flex-shrink-0" />
                                 <div className="flex-1 min-w-0">
-                                    <p className="font-dm font-medium text-sm text-white">{cat.name}</p>
-                                    {cat.description && <p className="font-dm text-xs text-white/60 truncate">{cat.description}</p>}
+                                    <p className="font-dm font-medium text-sm text-deep-text">{cat.name}</p>
+                                    {cat.description && <p className="font-dm text-xs text-muted truncate">{cat.description}</p>}
                                 </div>
-                                <span className="text-xs text-white/60 font-dm bg-[rgba(255,255,255,0.06)] px-2 py-0.5 rounded-full flex-shrink-0">
+                                <span className="text-xs text-muted font-dm bg-light-grey px-2 py-0.5 rounded-full flex-shrink-0">
                                     {getProductCount(cat._id)} products
                                 </span>
-                                <button onClick={() => handleToggle(cat._id)} className="p-1.5 text-white/60 hover:text-white transition-colors" title={cat.isVisible ? "Hide" : "Show"}>
+                                <button onClick={() => handleToggle(cat._id)} className="p-1.5 text-muted hover:text-deep-text transition-colors" title={cat.isVisible ? "Hide" : "Show"}>
                                     {cat.isVisible ? <Eye size={16} /> : <EyeOff size={16} />}
                                 </button>
-                                <button onClick={() => openEdit(cat)} className="p-1.5 text-white/60 hover:text-primary transition-colors"><Edit2 size={16} /></button>
-                                <button onClick={() => setDeleteConfirm(cat._id)} className="p-1.5 text-white/60 hover:text-error transition-colors"><Trash2 size={16} /></button>
+                                <button onClick={() => openEdit(cat)} className="p-1.5 text-muted hover:text-primary transition-colors"><Edit2 size={16} /></button>
+                                <button onClick={() => setDeleteConfirm(cat._id)} className="p-1.5 text-muted hover:text-error transition-colors"><Trash2 size={16} /></button>
                             </div>
                         ))}
                     </div>
                 ) : (
-                    <p className="text-center py-12 text-white/60 font-dm text-sm">No categories yet</p>
+                    <p className="text-center py-12 text-muted font-dm text-sm">No categories yet</p>
                 )}
             </div>
 
@@ -111,14 +111,14 @@ export default function CategoriesPage() {
             <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)} title={editingId ? "Edit Category" : "Add Category"}>
                 <div className="space-y-4">
                     <div>
-                        <label className="block font-dm text-sm font-medium text-white mb-1.5">Name *</label>
-                        <input type="text" value={name} onChange={(e) => setName(e.target.value)} className="w-full px-4 py-2.5 rounded-xl border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.06)] focus:border-[#A78BFA] focus:ring-2 focus:ring-primary/20 outline-none text-sm font-dm" placeholder="Category name" />
+                        <label className="block font-dm text-sm font-medium text-deep-text mb-1.5">Name *</label>
+                        <input type="text" value={name} onChange={(e) => setName(e.target.value)} className="w-full px-4 py-2.5 rounded-xl border border-border-grey bg-light-grey focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none text-sm font-dm" placeholder="Category name" />
                     </div>
                     <div>
-                        <label className="block font-dm text-sm font-medium text-white mb-1.5">Description</label>
-                        <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} className="w-full px-4 py-2.5 rounded-xl border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.06)] focus:border-[#A78BFA] focus:ring-2 focus:ring-primary/20 outline-none text-sm font-dm" placeholder="Optional description" />
+                        <label className="block font-dm text-sm font-medium text-deep-text mb-1.5">Description</label>
+                        <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} className="w-full px-4 py-2.5 rounded-xl border border-border-grey bg-light-grey focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none text-sm font-dm" placeholder="Optional description" />
                     </div>
-                    <button onClick={handleSave} disabled={!name.trim()} className="w-full py-3 bg-primary hover:hover:scale-[1.02] active:scale-[0.98] disabled:bg-border-grey text-white font-poppins font-semibold rounded-xl transition-all text-sm">
+                    <button onClick={handleSave} disabled={!name.trim()} className="w-full py-3 bg-primary hover:bg-hover-blue disabled:bg-border-grey text-white font-poppins font-semibold rounded-xl transition-all text-sm">
                         {editingId ? "Update" : "Create"}
                     </button>
                 </div>
@@ -126,9 +126,9 @@ export default function CategoriesPage() {
 
             {/* Delete Confirmation */}
             <Modal isOpen={!!deleteConfirm} onClose={() => setDeleteConfirm(null)} title="Delete Category">
-                <p className="font-dm text-sm text-white mb-4">Are you sure you want to delete this category? This cannot be undone. Categories with active products cannot be deleted.</p>
+                <p className="font-dm text-sm text-deep-text mb-4">Are you sure you want to delete this category? This cannot be undone. Categories with active products cannot be deleted.</p>
                 <div className="flex gap-3">
-                    <button onClick={() => setDeleteConfirm(null)} className="flex-1 py-2.5 bg-[rgba(255,255,255,0.06)] text-white font-poppins font-semibold rounded-xl text-sm">Cancel</button>
+                    <button onClick={() => setDeleteConfirm(null)} className="flex-1 py-2.5 bg-light-grey text-deep-text font-poppins font-semibold rounded-xl text-sm">Cancel</button>
                     <button onClick={() => deleteConfirm && handleDelete(deleteConfirm)} className="flex-1 py-2.5 bg-error hover:bg-error/90 text-white font-poppins font-semibold rounded-xl text-sm">Delete</button>
                 </div>
             </Modal>

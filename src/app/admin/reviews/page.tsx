@@ -27,7 +27,7 @@ export default function ReviewsPage() {
 
     const handleApprove = async (id: string) => {
         try {
-            await updateReviewStatus({ id: id as any, status: "approved" });
+            await updateReviewStatus({ id, status: "approved" });
             await logAction({ action: "Review Approved", details: `Review by ${reviews?.find((r: any) => r._id === id)?.customerName}` });
             toast("Review approved!", "success");
         } catch {
@@ -37,7 +37,7 @@ export default function ReviewsPage() {
 
     const handleReject = async (id: string) => {
         try {
-            await updateReviewStatus({ id: id as any, status: "rejected" });
+            await updateReviewStatus({ id, status: "rejected" });
             await logAction({ action: "Review Rejected", details: `Review by ${reviews?.find((r: any) => r._id === id)?.customerName}` });
             toast("Review rejected", "success");
         } catch {
@@ -67,7 +67,7 @@ export default function ReviewsPage() {
 
     return (
         <div>
-            <h1 className="font-poppins font-bold text-2xl text-white mb-6">Reviews</h1>
+            <h1 className="font-poppins font-bold text-2xl text-deep-text mb-6">Reviews</h1>
 
             {/* Status Tabs */}
             <div className="flex gap-2 mb-6 overflow-x-auto">
@@ -75,11 +75,11 @@ export default function ReviewsPage() {
                     <button
                         key={tab.value}
                         onClick={() => setFilter(tab.value)}
-                        className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-poppins font-medium transition-all whitespace-nowrap ${filter === tab.value ? "bg-primary text-white" : "bg-[rgba(255,255,255,0.03)] text-white/60 hover:bg-[rgba(255,255,255,0.06)] shadow-[0_4px_24px_rgba(0,0,0,0.2)] border border-[rgba(255,255,255,0.08)] backdrop-blur-xl"
+                        className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-poppins font-medium transition-all whitespace-nowrap ${filter === tab.value ? "bg-primary text-white" : "bg-white text-muted hover:bg-light-grey card-shadow"
                             }`}
                     >
                         {tab.label}
-                        <span className={`text-xs px-1.5 py-0.5 rounded-full ${filter === tab.value ? "bg-[rgba(255,255,255,0.03)]/20" : "bg-[rgba(255,255,255,0.06)]"}`}>
+                        <span className={`text-xs px-1.5 py-0.5 rounded-full ${filter === tab.value ? "bg-white/20" : "bg-light-grey"}`}>
                             {tab.count}
                         </span>
                     </button>
@@ -89,7 +89,7 @@ export default function ReviewsPage() {
             {/* Reviews List */}
             <div className="space-y-3">
                 {filtered.map((review: any) => (
-                    <div key={review._id} className="bg-[rgba(255,255,255,0.03)] rounded-xl shadow-[0_4px_24px_rgba(0,0,0,0.2)] border border-[rgba(255,255,255,0.08)] backdrop-blur-xl p-5">
+                    <div key={review._id} className="bg-white rounded-xl card-shadow p-5">
                         <div className="flex items-start gap-3">
                             <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                                 <span className="font-poppins font-bold text-primary text-sm">
@@ -98,20 +98,20 @@ export default function ReviewsPage() {
                             </div>
                             <div className="flex-1 min-w-0">
                                 <div className="flex items-center gap-2 mb-1">
-                                    <p className="font-dm font-medium text-sm text-white">{review.customerName}</p>
+                                    <p className="font-dm font-medium text-sm text-deep-text">{review.customerName}</p>
                                     <span className={`text-[10px] font-poppins font-semibold px-2 py-0.5 rounded-full ${statusColors[review.status]}`}>
                                         {review.status}
                                     </span>
                                 </div>
                                 <StarRating rating={review.starRating} size={14} />
-                                <p className="font-dm text-white/60 text-sm mt-2 leading-relaxed">&ldquo;{review.reviewText}&rdquo;</p>
-                                <p className="text-xs text-white/60/60 font-dm mt-2">
+                                <p className="font-dm text-muted text-sm mt-2 leading-relaxed">&ldquo;{review.reviewText}&rdquo;</p>
+                                <p className="text-xs text-muted/60 font-dm mt-2">
                                     {new Date(review.submittedAt).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
                                 </p>
                             </div>
                         </div>
 
-                        <div className="flex items-center gap-2 mt-3 pt-3 border-t border-[rgba(255,255,255,0.08)]">
+                        <div className="flex items-center gap-2 mt-3 pt-3 border-t border-border-grey">
                             {review.status !== "approved" && (
                                 <button onClick={() => handleApprove(review._id)} className="flex items-center gap-1.5 px-3 py-1.5 bg-success/10 text-success text-xs font-dm font-medium rounded-lg hover:bg-success/20 transition-colors">
                                     <Check size={14} /> Approve
@@ -123,20 +123,20 @@ export default function ReviewsPage() {
                                 </button>
                             )}
                             <div className="flex-1" />
-                            <button onClick={() => setDeleteConfirm(review._id)} className="p-1.5 text-white/60 hover:text-error transition-colors">
+                            <button onClick={() => setDeleteConfirm(review._id)} className="p-1.5 text-muted hover:text-error transition-colors">
                                 <Trash2 size={14} />
                             </button>
                         </div>
                     </div>
                 ))}
-                {filtered.length === 0 && <p className="text-center py-12 text-white/60 font-dm text-sm">No reviews found</p>}
+                {filtered.length === 0 && <p className="text-center py-12 text-muted font-dm text-sm">No reviews found</p>}
             </div>
 
             {/* Delete Confirm */}
             <Modal isOpen={!!deleteConfirm} onClose={() => setDeleteConfirm(null)} title="Delete Review">
-                <p className="font-dm text-sm text-white mb-4">Permanently delete this review? This cannot be undone.</p>
+                <p className="font-dm text-sm text-deep-text mb-4">Permanently delete this review? This cannot be undone.</p>
                 <div className="flex gap-3">
-                    <button onClick={() => setDeleteConfirm(null)} className="flex-1 py-2.5 bg-[rgba(255,255,255,0.06)] text-white font-poppins font-semibold rounded-xl text-sm">Cancel</button>
+                    <button onClick={() => setDeleteConfirm(null)} className="flex-1 py-2.5 bg-light-grey text-deep-text font-poppins font-semibold rounded-xl text-sm">Cancel</button>
                     <button onClick={() => deleteConfirm && handleDelete(deleteConfirm)} className="flex-1 py-2.5 bg-error hover:bg-error/90 text-white font-poppins font-semibold rounded-xl text-sm">Delete</button>
                 </div>
             </Modal>

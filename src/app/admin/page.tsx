@@ -13,7 +13,7 @@ import {
 const fadeUp = (delay = 0) => ({
     initial: { opacity: 0, y: 16 },
     animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.45, delay, ease: [0.22, 1, 0.36, 1] as any },
+    transition: { duration: 0.45, delay, ease: [0.22, 1, 0.36, 1] },
 });
 
 function StatCard({
@@ -27,9 +27,9 @@ function StatCard({
                 <div
                     className="rounded-2xl p-5 transition-all duration-300 group-hover:-translate-y-1"
                     style={{
-                        background: "rgba(255,255,255,0.03)",
-                        border: "1px solid rgba(255,255,255,0.08)",
-                        boxShadow: "0 4px 24px rgba(0,0,0,0.2)",
+                        background: "white",
+                        border: "1px solid rgba(124,58,237,0.08)",
+                        boxShadow: "0 2px 16px rgba(124,58,237,0.06)",
                     }}
                     onMouseEnter={(e) => {
                         (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 32px rgba(124,58,237,0.14)";
@@ -51,7 +51,7 @@ function StatCard({
                             style={{ color: "rgba(124,58,237,0.3)" }}
                         />
                     </div>
-                    <p className="font-bricolage font-bold text-3xl" style={{ color: "white", letterSpacing: "-0.02em" }}>
+                    <p className="font-bricolage font-bold text-3xl" style={{ color: "#1A1035", letterSpacing: "-0.02em" }}>
                         {value}
                     </p>
                     <p className="font-dm text-[13px] font-medium mt-1" style={{ color: "#6B7280" }}>{label}</p>
@@ -73,8 +73,8 @@ function QuickAction({ label, href, icon: Icon, color, delay = 0 }: {
                 href={href}
                 className="flex items-center gap-3 p-4 rounded-xl transition-all duration-200 group"
                 style={{
-                    background: "rgba(255,255,255,0.03)",
-                    border: "1px solid rgba(255,255,255,0.08)",
+                    background: "white",
+                    border: "1px solid rgba(124,58,237,0.08)",
                     boxShadow: "0 1px 8px rgba(0,0,0,0.04)",
                 }}
                 onMouseEnter={(e) => {
@@ -92,7 +92,7 @@ function QuickAction({ label, href, icon: Icon, color, delay = 0 }: {
                 >
                     <Icon size={16} className="text-white" />
                 </div>
-                <span className="font-dm font-medium text-[14px]" style={{ color: "white" }}>{label}</span>
+                <span className="font-dm font-medium text-[14px]" style={{ color: "#374151" }}>{label}</span>
                 <ChevronRightIcon className="ml-auto transition-transform group-hover:translate-x-0.5" />
             </Link>
         </motion.div>
@@ -180,7 +180,7 @@ export default function AdminDashboard() {
                 {...fadeUp(0)}
                 className="relative overflow-hidden rounded-2xl p-6 md:p-8 mb-8"
                 style={{
-                    background: "linear-gradient(135deg, white 0%, #2D1B69 60%, #3B1FA0 100%)",
+                    background: "linear-gradient(135deg, #1A1035 0%, #2D1B69 60%, #3B1FA0 100%)",
                     boxShadow: "0 8px 32px rgba(124,58,237,0.25)",
                 }}
             >
@@ -229,7 +229,7 @@ export default function AdminDashboard() {
                 {/* Quick Actions */}
                 <motion.div {...fadeUp(0.2)} className="lg:col-span-1">
                     <div className="flex items-center justify-between mb-4">
-                        <h3 className="font-poppins font-semibold text-[15px]" style={{ color: "white" }}>Quick Actions</h3>
+                        <h3 className="font-poppins font-semibold text-[15px]" style={{ color: "#1A1035" }}>Quick Actions</h3>
                     </div>
                     <div className="space-y-2">
                         {quickActions.map((action) => (
@@ -241,16 +241,16 @@ export default function AdminDashboard() {
                 {/* Activity Feed */}
                 <motion.div {...fadeUp(0.25)} className="lg:col-span-2">
                     <div className="flex items-center justify-between mb-4">
-                        <h3 className="font-poppins font-semibold text-[15px]" style={{ color: "white" }}>Recent Activity</h3>
+                        <h3 className="font-poppins font-semibold text-[15px]" style={{ color: "#1A1035" }}>Recent Activity</h3>
                         <span className="font-dm text-[12px]" style={{ color: "#A78BFA" }}>Live feed</span>
                     </div>
 
                     <div
                         className="rounded-2xl overflow-hidden"
                         style={{
-                            background: "rgba(255,255,255,0.03)",
-                            border: "1px solid rgba(255,255,255,0.08)",
-                            boxShadow: "0 4px 24px rgba(0,0,0,0.2)",
+                            background: "white",
+                            border: "1px solid rgba(124,58,237,0.08)",
+                            boxShadow: "0 2px 16px rgba(124,58,237,0.06)",
                         }}
                     >
                         {activityLog && (activityLog as any[]).length > 0 ? (
@@ -270,7 +270,7 @@ export default function AdminDashboard() {
                                             <CheckCircle size={13} className="text-white" />
                                         </div>
                                         <div className="flex-1 min-w-0">
-                                            <p className="font-dm text-[13px] font-medium truncate" style={{ color: "white" }}>
+                                            <p className="font-dm text-[13px] font-medium truncate" style={{ color: "#1A1035" }}>
                                                 {entry.action}
                                             </p>
                                             <p className="font-dm text-[12px] truncate" style={{ color: "#9CA3AF" }}>

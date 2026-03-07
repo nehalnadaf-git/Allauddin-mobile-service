@@ -38,7 +38,7 @@ export default function HeroSection() {
         >
             {/* ── Background Image ── */}
             <div
-                className="absolute left-1/2 top-[48%] -translate-x-1/2 -translate-y-1/2 w-full max-w-[800px] h-[600px] md:h-[800px] pointer-events-none z-0 flex items-center justify-center opacity-[0.35]"
+                className="absolute left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2 w-full max-w-[800px] h-[600px] md:h-[800px] pointer-events-none z-0 flex items-center justify-center opacity-[0.35]"
                 style={{
                     maskImage: "radial-gradient(circle at center, black 30%, transparent 70%)",
                     WebkitMaskImage: "radial-gradient(circle at center, black 30%, transparent 70%)"

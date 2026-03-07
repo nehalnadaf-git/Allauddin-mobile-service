@@ -56,6 +56,9 @@ export const create = mutation({
         description: v.optional(v.string()),
         isInStock: v.boolean(),
         displayOrder: v.number(),
+        offerType: v.optional(v.union(v.literal("none"), v.literal("discount"), v.literal("bogo"))),
+        discountPercentage: v.optional(v.number()),
+        discountedPrice: v.optional(v.number()),
     },
     handler: async (ctx, args) => {
         const existing = await ctx.db.query("products").collect();

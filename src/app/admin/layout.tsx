@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
     LayoutDashboard, Package, FolderOpen, Star, Image, Wrench,
     Settings, LogOut, Menu, X, ChevronRight, Megaphone, Tag,
-    Shield, HelpCircle, Bell, Search, Zap,
+    Shield, HelpCircle, Bell, Search, Zap, BookOpen
 } from "lucide-react";
 import { AdminAuthProvider, useAdminAuth } from "@/lib/adminAuth";
 import AdminLoginPage from "./login/page";
@@ -41,6 +41,7 @@ const NAV_GROUPS = [
     {
         label: "System",
         items: [
+            { href: "/admin/guide", label: "Guide", icon: BookOpen },
             { href: "/admin/settings", label: "Settings", icon: Settings },
         ],
     },
@@ -87,7 +88,7 @@ function Sidebar({ onClose }: { onClose?: () => void }) {
                         <div className="space-y-0.5">
                             {group.items.map((link) => {
                                 const Icon = link.icon;
-                                const active = isActive(link.href, link.exact);
+                                const active = isActive(link.href, (link as any).exact);
                                 return (
                                     <Link
                                         key={link.href}
@@ -161,6 +162,7 @@ function AdminLayoutInner({ children }: { children: React.ReactNode }) {
             "/admin/brands": "Brands",
             "/admin/trust": "Trust Strip",
             "/admin/howitworks": "How It Works",
+            "/admin/guide": "Admin Guide",
             "/admin/settings": "Settings",
         };
         return map[pathname] || "Admin";

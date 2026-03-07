@@ -27,6 +27,7 @@ const platformColors: Record<string, string> = {
 
 export default function Footer() {
     const settings = useQuery(api.settings.get);
+    const { openRepairModal } = useRepairModal();
 
     type SocialLink = { platform: string; url: string; isVisible: boolean; displayOrder: number };
     const visibleLinks: SocialLink[] = (settings?.socialLinks as SocialLink[] | undefined)
@@ -117,21 +118,29 @@ export default function Footer() {
                                 Quick Links
                             </h4>
                             <ul className="space-y-4">
-                                {[
-                                    { href: "/", label: "Home" },
-                                    { href: "/services", label: "Our Services" },
-                                    { href: "/accessories", label: "Shop Accessories" },
-                                    { href: whatsappHref, label: "Book a Repair", external: true },
-                                ].map((link) => (
+                                {(
+                                    [
+                                        { href: "/", label: "Home" },
+                                        { href: "/services", label: "Our Services" },
+                                        { href: "/accessories", label: "Shop Accessories" },
+                                        { label: "Book a Repair", onClick: openRepairModal },
+                                    ] as Array<{ href?: string; label: string; onClick?: () => void; external?: boolean }>
+                                ).map((link) => (
                                     <li key={link.label}>
-                                        {link.external ? (
+                                        {link.onClick ? (
+                                            <button onClick={link.onClick}
+                                                className="font-dm text-[15px] transition-colors duration-200 hover:text-white min-h-[48px] flex items-center"
+                                                style={{ color: "rgba(255,255,255,0.8)" }}>
+                                                {link.label}
+                                            </button>
+                                        ) : link.external ? (
                                             <a href={link.href} target="_blank" rel="noopener noreferrer"
                                                 className="font-dm text-[15px] transition-colors duration-200 hover:text-white min-h-[48px] flex items-center"
                                                 style={{ color: "rgba(255,255,255,0.8)" }}>
                                                 {link.label}
                                             </a>
                                         ) : (
-                                            <Link href={link.href}
+                                            <Link href={link.href as string}
                                                 className="font-dm text-[15px] transition-colors duration-200 hover:text-white min-h-[48px] flex items-center"
                                                 style={{ color: "rgba(255,255,255,0.8)" }}>
                                                 {link.label}

@@ -154,170 +154,184 @@ export default function Navbar() {
                 </nav>
             </header>
 
-            {/* ── Mobile Full-Screen Menu ── */}
+            {/* ── Responsive Drawer Menu ── */}
             <AnimatePresence>
                 {menuOpen && (
-                    <motion.div
-                        initial={{ opacity: 0, x: "100%" }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: "100%" }}
-                        transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                        className="fixed inset-0 z-[200] flex flex-col overflow-hidden"
-                        style={{ background: "linear-gradient(160deg, #0F0A1E 0%, #1A1035 55%, #2D1B69 100%)" }}
-                    >
-                        {/* Ambient orbs */}
-                        <div className="absolute top-0 right-0 w-[280px] h-[280px] rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(124,58,237,0.18) 0%, transparent 70%)", transform: "translate(30%, -30%)" }} />
-                        <div className="absolute bottom-0 left-0 w-[220px] h-[220px] rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(167,139,250,0.1) 0%, transparent 70%)", transform: "translate(-20%, 25%)" }} />
-                        {/* Noise overlay */}
-                        <div className="absolute inset-0 pointer-events-none opacity-[0.03]" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")", backgroundSize: "200px 200px" }} />
-
-                        {/* ── Header ── */}
+                    <>
+                        {/* Backdrop overlay for desktop */}
                         <motion.div
-                            initial={{ opacity: 0, y: -12 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.05, duration: 0.4 }}
-                            className="relative z-10 flex items-center justify-between px-6 pt-8 pb-6"
-                            style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}
-                        >
-                            <div className="flex items-center gap-3.5">
-                                <div
-                                    className="w-12 h-12 rounded-[16px] overflow-hidden flex-shrink-0"
-                                    style={{ boxShadow: "0 4px 20px rgba(124,58,237,0.45), 0 2px 6px rgba(0,0,0,0.2)", border: "1.5px solid rgba(167,139,250,0.3)" }}
-                                >
-                                    <img src="/profile/profile-image.png" alt="Allauddin Nadaf" className="w-full h-full object-cover object-top" />
-                                </div>
-                                <div>
-                                    <p className="font-bricolage font-bold text-white text-[17px] leading-none tracking-tight">Allauddin Nadaf</p>
-                                    <p className="font-dm text-[12px] mt-1" style={{ color: "rgba(167,139,250,0.8)" }}>Founder · Master Technician</p>
-                                </div>
-                            </div>
-                            <button
-                                onClick={() => setMenuOpen(false)}
-                                className="w-10 h-10 rounded-full flex items-center justify-center transition-all active:scale-90"
-                                style={{ background: "rgba(255,255,255,0.07)", color: "rgba(255,255,255,0.7)", border: "1px solid rgba(255,255,255,0.1)" }}
-                                aria-label="Close menu"
-                            >
-                                <X size={18} />
-                            </button>
-                        </motion.div>
-
-                        {/* ── Nav links ── */}
-                        <nav className="relative z-10 flex flex-col px-5 pt-4 gap-1">
-                            {[
-                                { href: "/", label: "Home", Icon: Home },
-                                { href: "/services", label: "Our Services", Icon: Settings },
-                                { href: "/accessories", label: "Shop Accessories", Icon: Package },
-                            ].map((link, i) => {
-                                const isActive = pathname === link.href;
-                                return (
-                                    <motion.div
-                                        key={link.href}
-                                        initial={{ opacity: 0, x: -16 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        transition={{ delay: 0.12 + i * 0.07, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                                    >
-                                        <Link
-                                            href={link.href}
-                                            onClick={() => setMenuOpen(false)}
-                                            className="group flex items-center gap-4 px-4 py-4 rounded-2xl transition-all active:scale-[0.98]"
-                                            style={{
-                                                background: isActive ? "rgba(124,58,237,0.18)" : "transparent",
-                                                border: isActive ? "1px solid rgba(124,58,237,0.3)" : "1px solid transparent",
-                                            }}
-                                        >
-                                            <div
-                                                className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-all"
-                                                style={{
-                                                    background: isActive ? "rgba(124,58,237,0.35)" : "rgba(255,255,255,0.06)",
-                                                    border: `1px solid ${isActive ? "rgba(167,139,250,0.4)" : "rgba(255,255,255,0.08)"}`,
-                                                }}
-                                            >
-                                                <link.Icon size={17} style={{ color: isActive ? "#A78BFA" : "rgba(255,255,255,0.55)" }} />
-                                            </div>
-                                            <span
-                                                className="font-poppins font-semibold text-[16px] flex-1"
-                                                style={{ color: isActive ? "#E9D5FF" : "rgba(255,255,255,0.82)" }}
-                                            >
-                                                {link.label}
-                                            </span>
-                                            <ArrowRight
-                                                size={15}
-                                                className="transition-all duration-200 group-hover:translate-x-1"
-                                                style={{ color: isActive ? "#A78BFA" : "rgba(255,255,255,0.2)" }}
-                                            />
-                                        </Link>
-                                    </motion.div>
-                                );
-                            })}
-                        </nav>
-
-                        {/* ── Book Repair CTA ── */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.35, duration: 0.4 }}
-                            className="relative z-10 px-5 mt-4"
-                        >
-                            <button
-                                onClick={() => { setMenuOpen(false); openRepairModal(); }}
-                                className="w-full flex items-center justify-center gap-2.5 h-[52px] rounded-2xl font-poppins font-bold text-[15px] text-white transition-all active:scale-[0.97]"
-                                style={{
-                                    background: "linear-gradient(135deg, #7C3AED, #6D28D9)",
-                                    boxShadow: "0 8px 28px rgba(124,58,237,0.45)",
-                                }}
-                            >
-                                <Wrench size={17} />
-                                Book a Repair
-                            </button>
-                        </motion.div>
-
-                        {/* ── Info strip ── */}
-                        <motion.div
+                            key="menu-backdrop"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
-                            transition={{ delay: 0.42, duration: 0.4 }}
-                            className="relative z-10 mx-5 mt-4 px-4 py-4 rounded-2xl flex flex-col gap-2.5"
-                            style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}
-                        >
-                            {/* Open status */}
-                            <div className="flex items-center gap-2.5">
-                                <span className="w-2 h-2 rounded-full flex-shrink-0 animate-pulse" style={{ background: "#22C55E" }} />
-                                <span className="font-dm text-[13px]" style={{ color: "rgba(255,255,255,0.55)" }}>Open Daily · <span style={{ color: "rgba(255,255,255,0.75)" }}>10AM – 8PM</span></span>
-                            </div>
-                            {/* Location */}
-                            <div className="flex items-center gap-2.5">
-                                <MapPin size={13} style={{ color: "rgba(167,139,250,0.7)", flexShrink: 0 }} />
-                                <span className="font-dm text-[13px]" style={{ color: "rgba(255,255,255,0.55)" }}>Harsha Complex, Hubli, Karnataka</span>
-                            </div>
-                            {/* Phone */}
-                            <div className="flex items-center gap-2.5">
-                                <Phone size={13} style={{ color: "rgba(167,139,250,0.7)", flexShrink: 0 }} />
-                                <span className="font-dm text-[13px]" style={{ color: "rgba(255,255,255,0.55)" }}>+91 63632 78962</span>
-                            </div>
-                        </motion.div>
+                            exit={{ opacity: 0 }}
+                            onClick={() => setMenuOpen(false)}
+                            className="hidden md:block fixed inset-0 z-[190] bg-[#0F0A1E]/40 backdrop-blur-md"
+                        />
 
-                        {/* ── WhatsApp ── */}
+                        {/* Drawer Panel */}
                         <motion.div
-                            initial={{ opacity: 0, y: 12 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.5, duration: 0.4 }}
-                            className="relative z-10 px-5 mt-4 pb-10"
+                            key="menu-panel"
+                            initial={{ opacity: 0, x: "100%" }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: "100%" }}
+                            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                            className="fixed inset-0 md:left-auto md:w-[460px] z-[200] flex flex-col overflow-hidden md:border-l md:border-white/10 md:shadow-2xl"
+                            style={{ background: "linear-gradient(160deg, #0F0A1E 0%, #1A1035 55%, #2D1B69 100%)" }}
                         >
-                            <a
-                                href={whatsappHref}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex items-center justify-center gap-3 w-full h-[52px] rounded-2xl font-poppins font-semibold text-[15px] text-white transition-all active:scale-[0.97]"
-                                style={{
-                                    background: "linear-gradient(135deg, #25D366, #1aA052)",
-                                    boxShadow: "0 6px 24px rgba(37,211,102,0.3)",
-                                }}
+                            {/* Ambient orbs */}
+                            <div className="absolute top-0 right-0 w-[280px] h-[280px] rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(124,58,237,0.18) 0%, transparent 70%)", transform: "translate(30%, -30%)" }} />
+                            <div className="absolute bottom-0 left-0 w-[220px] h-[220px] rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(167,139,250,0.1) 0%, transparent 70%)", transform: "translate(-20%, 25%)" }} />
+                            {/* Noise overlay */}
+                            <div className="absolute inset-0 pointer-events-none opacity-[0.03]" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")", backgroundSize: "200px 200px" }} />
+
+                            {/* ── Header ── */}
+                            <motion.div
+                                initial={{ opacity: 0, y: -12 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.05, duration: 0.4 }}
+                                className="relative z-10 flex items-center justify-between px-6 pt-8 pb-6"
+                                style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}
                             >
-                                <MessageCircle size={18} />
-                                Message on WhatsApp
-                            </a>
+                                <div className="flex items-center gap-3.5">
+                                    <div
+                                        className="w-12 h-12 rounded-[16px] overflow-hidden flex-shrink-0"
+                                        style={{ boxShadow: "0 4px 20px rgba(124,58,237,0.45), 0 2px 6px rgba(0,0,0,0.2)", border: "1.5px solid rgba(167,139,250,0.3)" }}
+                                    >
+                                        <img src="/profile/profile-image.png" alt="Allauddin Nadaf" className="w-full h-full object-cover object-top" />
+                                    </div>
+                                    <div>
+                                        <p className="font-bricolage font-bold text-white text-[17px] leading-none tracking-tight">Allauddin Nadaf</p>
+                                        <p className="font-dm text-[12px] mt-1" style={{ color: "rgba(167,139,250,0.8)" }}>Founder · Master Technician</p>
+                                    </div>
+                                </div>
+                                <button
+                                    onClick={() => setMenuOpen(false)}
+                                    className="w-10 h-10 rounded-full flex items-center justify-center transition-all active:scale-90"
+                                    style={{ background: "rgba(255,255,255,0.07)", color: "rgba(255,255,255,0.7)", border: "1px solid rgba(255,255,255,0.1)" }}
+                                    aria-label="Close menu"
+                                >
+                                    <X size={18} />
+                                </button>
+                            </motion.div>
+
+                            {/* ── Nav links ── */}
+                            <nav className="relative z-10 flex flex-col px-5 pt-4 gap-1">
+                                {[
+                                    { href: "/", label: "Home", Icon: Home },
+                                    { href: "/services", label: "Our Services", Icon: Settings },
+                                    { href: "/accessories", label: "Shop Accessories", Icon: Package },
+                                ].map((link, i) => {
+                                    const isActive = pathname === link.href;
+                                    return (
+                                        <motion.div
+                                            key={link.href}
+                                            initial={{ opacity: 0, x: -16 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            transition={{ delay: 0.12 + i * 0.07, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                                        >
+                                            <Link
+                                                href={link.href}
+                                                onClick={() => setMenuOpen(false)}
+                                                className="group flex items-center gap-4 px-4 py-4 rounded-2xl transition-all active:scale-[0.98]"
+                                                style={{
+                                                    background: isActive ? "rgba(124,58,237,0.18)" : "transparent",
+                                                    border: isActive ? "1px solid rgba(124,58,237,0.3)" : "1px solid transparent",
+                                                }}
+                                            >
+                                                <div
+                                                    className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-all"
+                                                    style={{
+                                                        background: isActive ? "rgba(124,58,237,0.35)" : "rgba(255,255,255,0.06)",
+                                                        border: `1px solid ${isActive ? "rgba(167,139,250,0.4)" : "rgba(255,255,255,0.08)"}`,
+                                                    }}
+                                                >
+                                                    <link.Icon size={17} style={{ color: isActive ? "#A78BFA" : "rgba(255,255,255,0.55)" }} />
+                                                </div>
+                                                <span
+                                                    className="font-poppins font-semibold text-[16px] flex-1"
+                                                    style={{ color: isActive ? "#E9D5FF" : "rgba(255,255,255,0.82)" }}
+                                                >
+                                                    {link.label}
+                                                </span>
+                                                <ArrowRight
+                                                    size={15}
+                                                    className="transition-all duration-200 group-hover:translate-x-1"
+                                                    style={{ color: isActive ? "#A78BFA" : "rgba(255,255,255,0.2)" }}
+                                                />
+                                            </Link>
+                                        </motion.div>
+                                    );
+                                })}
+                            </nav>
+
+                            {/* ── Book Repair CTA ── */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.35, duration: 0.4 }}
+                                className="relative z-10 px-5 mt-4"
+                            >
+                                <button
+                                    onClick={() => { setMenuOpen(false); openRepairModal(); }}
+                                    className="w-full flex items-center justify-center gap-2.5 h-[52px] rounded-2xl font-poppins font-bold text-[15px] text-white transition-all active:scale-[0.97]"
+                                    style={{
+                                        background: "linear-gradient(135deg, #7C3AED, #6D28D9)",
+                                        boxShadow: "0 8px 28px rgba(124,58,237,0.45)",
+                                    }}
+                                >
+                                    <Wrench size={17} />
+                                    Book a Repair
+                                </button>
+                            </motion.div>
+
+                            {/* ── Info strip ── */}
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 0.42, duration: 0.4 }}
+                                className="relative z-10 mx-5 mt-4 px-4 py-4 rounded-2xl flex flex-col gap-2.5"
+                                style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}
+                            >
+                                {/* Open status */}
+                                <div className="flex items-center gap-2.5">
+                                    <span className="w-2 h-2 rounded-full flex-shrink-0 animate-pulse" style={{ background: "#22C55E" }} />
+                                    <span className="font-dm text-[13px]" style={{ color: "rgba(255,255,255,0.55)" }}>Open Daily · <span style={{ color: "rgba(255,255,255,0.75)" }}>10AM – 8PM</span></span>
+                                </div>
+                                {/* Location */}
+                                <div className="flex items-center gap-2.5">
+                                    <MapPin size={13} style={{ color: "rgba(167,139,250,0.7)", flexShrink: 0 }} />
+                                    <span className="font-dm text-[13px]" style={{ color: "rgba(255,255,255,0.55)" }}>Harsha Complex, Hubli, Karnataka</span>
+                                </div>
+                                {/* Phone */}
+                                <div className="flex items-center gap-2.5">
+                                    <Phone size={13} style={{ color: "rgba(167,139,250,0.7)", flexShrink: 0 }} />
+                                    <span className="font-dm text-[13px]" style={{ color: "rgba(255,255,255,0.55)" }}>+91 63632 78962</span>
+                                </div>
+                            </motion.div>
+
+                            {/* ── WhatsApp ── */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 12 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.5, duration: 0.4 }}
+                                className="relative z-10 px-5 mt-4 pb-10"
+                            >
+                                <a
+                                    href={whatsappHref}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center justify-center gap-3 w-full h-[52px] rounded-2xl font-poppins font-semibold text-[15px] text-white transition-all active:scale-[0.97]"
+                                    style={{
+                                        background: "linear-gradient(135deg, #25D366, #1aA052)",
+                                        boxShadow: "0 6px 24px rgba(37,211,102,0.3)",
+                                    }}
+                                >
+                                    <MessageCircle size={18} />
+                                    Message on WhatsApp
+                                </a>
+                            </motion.div>
                         </motion.div>
-                    </motion.div>
+                    </>
                 )}
             </AnimatePresence>
         </>

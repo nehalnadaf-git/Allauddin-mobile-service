@@ -54,25 +54,38 @@ export default function Footer() {
 
                         {/* Column 1: Brand (40%) */}
                         <div className="md:col-span-5">
-                            <div className="flex items-center gap-3 mb-4">
-                                <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ background: "linear-gradient(135deg, #7C3AED, #6D28D9)" }}>
-                                    <span className="text-white font-poppins font-bold text-base">A</span>
+                            <div className="flex items-center gap-4 mb-5">
+                                <div
+                                    className="w-[52px] h-[52px] rounded-full overflow-hidden flex-shrink-0"
+                                    style={{ border: "2px solid rgba(167,139,250,0.4)", boxShadow: "0 4px 16px rgba(124,58,237,0.3)" }}
+                                >
+                                    <img
+                                        src="/profile/profile-image.png"
+                                        alt="Founder"
+                                        className="w-full h-full object-cover object-top"
+                                    />
                                 </div>
-                                <span className="font-bricolage font-bold text-[20px] text-white">
-                                    {settings?.shopName || "Allauddin Mobile Service"}
-                                </span>
+                                <div className="flex flex-col justify-center">
+                                    <h3 className="font-bricolage font-bold text-[22px] text-white tracking-tight leading-none mb-1.5">
+                                        {settings?.shopName || "Allauddin Mobile Service"}
+                                    </h3>
+                                    <p className="font-dm text-[12px] font-medium tracking-wide uppercase" style={{ color: "rgba(167,139,250,0.9)" }}>Founder · Master Technician</p>
+                                </div>
                             </div>
-                            <p className="font-dm italic text-[14px] mb-6" style={{ color: "rgba(255,255,255,0.6)" }}>
-                                Expert Phone Repair &amp; Premium Accessories
+                            <p className="font-dm text-[15px] leading-relaxed mb-7 pr-4 md:pr-10" style={{ color: "rgba(255,255,255,0.7)" }}>
+                                Expert phone repair and premium accessories. We bring devices back to life with genuine care and precision.
                             </p>
 
                             {/* Open Today pill */}
                             <div
-                                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full mb-6"
-                                style={{ background: "rgba(39,174,96,0.15)", border: "1px solid rgba(39,174,96,0.25)" }}
+                                className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full mb-7 shadow-sm"
+                                style={{ background: "rgba(34,197,94,0.1)", border: "1px solid rgba(34,197,94,0.2)" }}
                             >
-                                <span className="w-2 h-2 rounded-full bg-success flex-shrink-0" style={{ animation: "statusPulse 2s ease-in-out infinite" }} />
-                                <span className="font-dm font-medium text-[13px] text-white">
+                                <span className="relative flex w-2.5 h-2.5">
+                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                    <span className="relative inline-flex rounded-full w-2.5 h-2.5 bg-green-500"></span>
+                                </span>
+                                <span className="font-dm font-medium text-[13.5px] text-green-50">
                                     Open Today: {settings?.workingHoursStart || "10:00"} – {settings?.workingHoursEnd || "20:00"}
                                 </span>
                             </div>

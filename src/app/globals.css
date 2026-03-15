@@ -1,15 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Poppins:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;1,9..40,400&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* ─── CSS Design Tokens (v5.0) ──────────────────────────────────────────────── */
 :root {
-  /* Font families */
-  --font-display: 'Bricolage Grotesque', system-ui, sans-serif;
-  --font-heading: 'Poppins', system-ui, sans-serif;
-  --font-body: 'DM Sans', system-ui, sans-serif;
+  /* Font families - now provided via next/font in layout.tsx */
+  --font-display: var(--font-bricolage), system-ui, sans-serif;
+  --font-heading: var(--font-poppins), system-ui, sans-serif;
+  --font-body: var(--font-dm-sans), system-ui, sans-serif;
 
   /* Brand violet */
   --violet-primary: #7C3AED;

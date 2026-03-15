@@ -6,26 +6,7 @@ import { ShoppingBag } from "lucide-react";
 import { useQuery } from "@/lib/mockBackend";
 import { api } from "@/lib/mockBackend";
 
-const themeStyles: Record<string, { bg: string; border: string; text: string; badge: string }> = {
-    blue: {
-        bg: "from-[#7C3AED] to-[#6D28D9]",
-        border: "border-transparent text-white",
-        text: "text-white",
-        badge: "bg-white/20 text-white",
-    },
-    gold: {
-        bg: "from-gold/20 to-gold/5",
-        border: "border-gold/30",
-        text: "text-gold",
-        badge: "bg-gold/15 text-gold",
-    },
-    red: {
-        bg: "from-error/20 to-error/5",
-        border: "border-error/30",
-        text: "text-error",
-        badge: "bg-error/15 text-error",
-    },
-};
+
 
 export default function AccessoriesPromoBanner() {
     const banner = useQuery(api.banners.getPromoAccessories);

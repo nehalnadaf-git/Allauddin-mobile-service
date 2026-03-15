@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, Info, ShoppingBag, X, SlidersHorizontal } from "lucide-react";
+import { Search, Info, ShoppingBag, X } from "lucide-react";
 
 import { useQuery } from "@/lib/mockBackend";
 import { api } from "@/lib/mockBackend";

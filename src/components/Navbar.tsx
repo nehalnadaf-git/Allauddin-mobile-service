@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ShoppingCart, X, MessageCircle, ArrowRight, Wrench, Phone, MapPin, Home, Settings, Package } from "lucide-react";
+import { ShoppingCart, X, MessageCircle, ArrowRight, Wrench, Phone, MapPin, Home, Settings, Package, Smartphone } from "lucide-react";
 import { useRepairModal } from "@/lib/hooks/useRepairModal";
 import { useQuery } from "@/lib/mockBackend";
 import { api } from "@/lib/mockBackend";
@@ -14,6 +14,7 @@ const NAV_LINKS = [
     { href: "/", label: "Home" },
     { href: "/services", label: "Services" },
     { href: "/accessories", label: "Accessories" },
+    { href: "/sell-your-mobile", label: "Sell Mobile", badge: "NEW" },
 ];
 
 export default function Navbar() {
@@ -111,6 +112,23 @@ export default function Navbar() {
                                     style={{ color: isActive ? "#7C3AED" : "#374151" }}
                                 >
                                     {link.label}
+                                    {(link as any).badge && (
+                                        <span
+                                            className="absolute font-poppins font-bold"
+                                            style={{
+                                                top: "-2px",
+                                                right: "-4px",
+                                                fontSize: "9px",
+                                                background: "#E74C3C",
+                                                color: "#FFFFFF",
+                                                borderRadius: "9999px",
+                                                padding: "2px 5px",
+                                                lineHeight: 1.2,
+                                            }}
+                                        >
+                                            {(link as any).badge}
+                                        </span>
+                                    )}
                                     {isActive && (
                                         <motion.span
                                             layoutId="nav-indicator"
@@ -208,6 +226,7 @@ export default function Navbar() {
                                     { href: "/", label: "Home", Icon: Home },
                                     { href: "/services", label: "Our Services", Icon: Settings },
                                     { href: "/accessories", label: "Shop Accessories", Icon: Package },
+                                    { href: "/sell-your-mobile", label: "Sell Your Mobile", Icon: Smartphone, badge: "NEW" },
                                 ].map((link, i) => {
                                     const isActive = pathname === link.href;
                                     return (
@@ -236,10 +255,24 @@ export default function Navbar() {
                                                     <link.Icon size={17} style={{ color: isActive ? "#A78BFA" : "rgba(255,255,255,0.55)" }} />
                                                 </div>
                                                 <span
-                                                    className="font-poppins font-semibold text-[16px] flex-1"
+                                                    className="font-poppins font-semibold text-[16px] flex-1 flex items-center gap-2"
                                                     style={{ color: isActive ? "#E9D5FF" : "rgba(255,255,255,0.82)" }}
                                                 >
                                                     {link.label}
+                                                    {(link as any).badge && (
+                                                        <span
+                                                            className="font-poppins font-bold"
+                                                            style={{
+                                                                fontSize: "9px",
+                                                                background: "#E74C3C",
+                                                                color: "#FFFFFF",
+                                                                borderRadius: "9999px",
+                                                                padding: "2px 6px",
+                                                            }}
+                                                        >
+                                                            {(link as any).badge}
+                                                        </span>
+                                                    )}
                                                 </span>
                                                 <ArrowRight
                                                     size={15}

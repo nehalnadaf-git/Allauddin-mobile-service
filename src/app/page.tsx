@@ -6,6 +6,7 @@ import BrandsStrip from "@/components/landing/BrandsStrip";
 import HowItWorks from "@/components/landing/HowItWorks";
 import ServicesPreview from "@/components/landing/ServicesPreview";
 import PortfolioSection from "@/components/landing/PortfolioSection";
+import SellYourMobileTeaser from "@/components/landing/SellYourMobileTeaser";
 import ExpertSection from "@/components/landing/ExpertSection";
 import ReviewsSection from "@/components/landing/ReviewsSection";
 import ContactSection from "@/components/landing/ContactSection";
@@ -19,6 +20,7 @@ export default function HomePage() {
       <HowItWorks />
       <ServicesPreview />
       <PortfolioSection />
+      <SellYourMobileTeaser />
       <ExpertSection />
       <ReviewsSection />
       <ContactSection />

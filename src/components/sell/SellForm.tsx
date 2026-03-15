@@ -554,7 +554,7 @@ function Step3({
         backLabel="← Back"
         nextDisabled={
           form.name.trim().length < 2 ||
-          !/^\+?[0-9]{10,13}$/.test(form.phone.replace(/[\s\-()]/g, ""))
+          !/^[6-9][0-9]{9}$/.test(form.phone.replace(/[\s\-()]/g, "").replace(/^\+91/, ""))
         }
       />
     </div>

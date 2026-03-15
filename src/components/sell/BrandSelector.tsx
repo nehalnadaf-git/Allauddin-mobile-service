@@ -3,22 +3,22 @@
 import React from "react";
 
 const BRANDS = [
-  { name: "Samsung", emoji: "🔵" },
-  { name: "Apple iPhone", emoji: "🍎" },
-  { name: "OnePlus", emoji: "🔴" },
-  { name: "Vivo", emoji: "🟦" },
-  { name: "Oppo", emoji: "🟩" },
-  { name: "Realme", emoji: "🟨" },
-  { name: "Redmi", emoji: "🅡" },
-  { name: "MI", emoji: "🔶" },
-  { name: "Motorola", emoji: "〽️" },
-  { name: "Nokia", emoji: "🟦" },
-  { name: "iQOO", emoji: "🏁" },
-  { name: "Poco", emoji: "⚡" },
-  { name: "Infinix", emoji: "♾️" },
-  { name: "Tecno", emoji: "🟧" },
-  { name: "Google Pixel", emoji: "🌈" },
-  { name: "Other", emoji: "📱" },
+  { name: "Samsung" },
+  { name: "Apple iPhone" },
+  { name: "OnePlus" },
+  { name: "Vivo" },
+  { name: "Oppo" },
+  { name: "Realme" },
+  { name: "Redmi" },
+  { name: "MI" },
+  { name: "Motorola" },
+  { name: "Nokia" },
+  { name: "iQOO" },
+  { name: "Poco" },
+  { name: "Infinix" },
+  { name: "Tecno" },
+  { name: "Google Pixel" },
+  { name: "Other" },
 ];
 
 interface BrandSelectorProps {
@@ -98,17 +98,15 @@ export default function BrandSelector({
                 </div>
               )}
 
-              {/* Brand icon */}
-              <span style={{ fontSize: "22px", lineHeight: 1 }}>{brand.emoji}</span>
-
               {/* Brand name */}
               <span
-                className="font-poppins font-medium text-center leading-tight"
+                className="font-poppins font-medium text-center leading-tight transition-colors duration-200"
                 style={{
-                  fontSize: "12px",
+                  fontSize: "14px",
                   color: isSelected ? "#7C3AED" : "#374151",
                   fontWeight: isSelected ? 600 : 500,
                   wordBreak: "break-word",
+                  padding: "0 4px",
                 }}
               >
                 {brand.name}

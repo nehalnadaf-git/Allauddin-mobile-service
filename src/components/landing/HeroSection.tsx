@@ -38,7 +38,7 @@ export default function HeroSection() {
         >
             {/* ── Background Image ── */}
             <div
-                className="absolute left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2 w-full max-w-[800px] h-[600px] md:h-[800px] pointer-events-none z-0 flex items-center justify-center opacity-[0.35]"
+                className="absolute left-1/2 top-[40%] lg:top-[48%] -translate-x-1/2 -translate-y-1/2 w-full max-w-[800px] h-[600px] md:h-[800px] pointer-events-none z-0 flex items-center justify-center opacity-[0.35]"
                 style={{
                     maskImage: "radial-gradient(circle at center, black 30%, transparent 70%)",
                     WebkitMaskImage: "radial-gradient(circle at center, black 30%, transparent 70%)"
@@ -102,8 +102,8 @@ export default function HeroSection() {
             />
 
             {/* ── Content ── */}
-            <div className="relative z-10 w-full max-w-[1200px] mx-auto px-6 lg:px-12 py-32 lg:py-0 min-h-[100svh] flex items-center justify-center">
-                <div className="w-full flex flex-col items-center justify-center text-center">
+            <div className="relative z-10 w-full max-w-[1200px] mx-auto px-6 lg:px-12 py-32 lg:pt-40 lg:pb-20 min-h-[100svh] flex items-center justify-center">
+                <div className="w-full flex flex-col items-center justify-center text-center lg:mt-12">
 
                     {/* ── Text Column ── */}
                     <motion.div

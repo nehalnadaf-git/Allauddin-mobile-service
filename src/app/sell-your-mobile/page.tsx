@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import SellForm from "@/components/sell/SellForm";
 
+import HowSellingWorks from "@/components/sell/HowSellingWorks";
+
 export const metadata: Metadata = {
   title: "Sell Your Mobile | Aladdin Mobile Service Hubli",
   description:
@@ -133,90 +135,8 @@ export default function SellYourMobilePage() {
         </div>
       </section>
 
-      {/* ── How It Works ── */}
-      <section
-        className="relative"
-        style={{
-          background: "#FFFFFF",
-          backgroundImage:
-            "radial-gradient(circle, rgba(124,58,237,0.03) 1px, transparent 1px)",
-          backgroundSize: "28px 28px",
-          paddingTop: "clamp(56px, 8vw, 80px)",
-          paddingBottom: "clamp(56px, 8vw, 80px)",
-        }}
-      >
-        <div className="container-max mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2
-              className="font-bricolage font-bold mb-4 relative inline-block"
-              style={{
-                fontSize: "clamp(26px, 4vw, 36px)",
-                color: "#0F0F0F",
-                letterSpacing: "-0.02em",
-              }}
-            >
-              How Selling Works
-              <span
-                className="absolute left-1/2 -translate-x-1/2 bottom-[-6px] h-[3px] rounded-full"
-                style={{
-                  width: "60px",
-                  background: "linear-gradient(90deg, #7C3AED, #A78BFA)",
-                  display: "block",
-                }}
-              />
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              {
-                num: "01",
-                title: "Fill the Form",
-                body: "Tell us about your phone in under 2 minutes. Brand, model, condition — all details covered.",
-              },
-              {
-                num: "02",
-                title: "We Get Your Details on WhatsApp",
-                body: "Your phone summary is sent directly to Aladdin Mobile Service via WhatsApp instantly.",
-              },
-              {
-                num: "03",
-                title: "Get the Best Offer",
-                body: "We review your phone details and send you the best price directly on your WhatsApp.",
-              },
-            ].map((card) => (
-              <div
-                key={card.num}
-                className="relative overflow-hidden"
-                style={{
-                  background: "#FFFFFF",
-                  border: "1px solid rgba(124,58,237,0.1)",
-                  borderRadius: "24px",
-                  padding: "32px 28px",
-                  boxShadow: "0 2px 16px rgba(124,58,237,0.07), 0 1px 4px rgba(0,0,0,0.04)",
-                }}
-              >
-                {/* Watermark number */}
-                <span
-                  className="font-bricolage font-bold absolute top-4 right-5 select-none"
-                  style={{ fontSize: "72px", color: "rgba(124,58,237,0.06)", lineHeight: 1 }}
-                >
-                  {card.num}
-                </span>
-                <p
-                  className="font-poppins font-semibold mb-2 relative z-10"
-                  style={{ fontSize: "18px", color: "#0F0F0F" }}
-                >
-                  {card.title}
-                </p>
-                <p className="font-dm relative z-10" style={{ fontSize: "14px", color: "#6B7280", lineHeight: 1.7 }}>
-                  {card.body}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* ── How Selling Works (Upgraded) ── */}
+      <HowSellingWorks />
     </main>
   );
 }

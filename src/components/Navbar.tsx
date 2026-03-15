@@ -14,7 +14,7 @@ const NAV_LINKS = [
     { href: "/", label: "Home" },
     { href: "/services", label: "Services" },
     { href: "/accessories", label: "Accessories" },
-    { href: "/sell-your-mobile", label: "Sell Mobile", badge: "NEW" },
+    { href: "/sell-your-mobile", label: "Sell Mobile" },
 ];
 
 export default function Navbar() {
@@ -226,7 +226,7 @@ export default function Navbar() {
                                     { href: "/", label: "Home", Icon: Home },
                                     { href: "/services", label: "Our Services", Icon: Settings },
                                     { href: "/accessories", label: "Shop Accessories", Icon: Package },
-                                    { href: "/sell-your-mobile", label: "Sell Your Mobile", Icon: Smartphone, badge: "NEW" },
+                                    { href: "/sell-your-mobile", label: "Sell Your Mobile", Icon: Smartphone },
                                 ].map((link, i) => {
                                     const isActive = pathname === link.href;
                                     return (

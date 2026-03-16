@@ -1,23 +1,29 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Poppins, DM_Sans } from "next/font/google";
+import { Syne, Manrope, Nunito_Sans } from "next/font/google";
 import "./globals.css";
 
-const bricolage = Bricolage_Grotesque({
+// ─── Display font: Syne ────────────────────────────────────────────────────────
+// Geometric, editorial, distinctively authoritative for hero/section headings
+const syne = Syne({
   subsets: ["latin"],
-  variable: "--font-bricolage",
-  display: "swap",
-});
-
-const poppins = Poppins({
   weight: ["400", "500", "600", "700", "800"],
-  subsets: ["latin"],
-  variable: "--font-poppins",
+  variable: "--font-bricolage",   // keeps all existing font-bricolage classes working
   display: "swap",
 });
 
-const dmSans = DM_Sans({
+// ─── UI font: Manrope ──────────────────────────────────────────────────────────────
+// Refined variable geometric — premium, modern, replaces overused Poppins
+const manrope = Manrope({
   subsets: ["latin"],
-  variable: "--font-dm-sans",
+  variable: "--font-poppins",     // keeps all existing font-poppins classes working
+  display: "swap",
+});
+
+// ─── Body font: Nunito Sans ──────────────────────────────────────────────────────
+// Warmer reading rhythm, superior mobile legibility vs DM Sans
+const nunitoSans = Nunito_Sans({
+  subsets: ["latin"],
+  variable: "--font-dm-sans",     // keeps all existing font-dm classes working
   display: "swap",
 });
 
@@ -71,7 +77,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${dmSans.variable} ${poppins.variable} ${bricolage.variable}`}>
+    <html lang="en" className={`${nunitoSans.variable} ${manrope.variable} ${syne.variable}`}>
       <body className="font-dm">
         <ConvexClientProvider>
           <CartProvider>

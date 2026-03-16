@@ -4,10 +4,27 @@
 
 /* ─── CSS Design Tokens (v5.0) ──────────────────────────────────────────────── */
 :root {
-  /* Font families - now provided via next/font in layout.tsx */
-  --font-display: var(--font-bricolage), system-ui, sans-serif;
-  --font-heading: var(--font-poppins), system-ui, sans-serif;
-  --font-body: var(--font-dm-sans), system-ui, sans-serif;
+  /* Font families - mapped via next/font variables in layout.tsx */
+  --font-display:  var(--font-bricolage), "Syne", system-ui, sans-serif;
+  --font-heading:  var(--font-poppins),   "Manrope", system-ui, sans-serif;
+  --font-body:     var(--font-dm-sans),   "Nunito Sans", system-ui, sans-serif;
+
+  /* Typography scale tokens */
+  --tracking-display: -0.04em;
+  --tracking-heading: -0.03em;
+  --tracking-subhead: -0.02em;
+  --tracking-ui:      -0.01em;
+  --tracking-body:     0em;
+  --tracking-label:    0.07em;
+  --tracking-caps:     0.12em;
+
+  /* Line-height tokens */
+  --leading-tightest: 1.0;
+  --leading-display:  1.06;
+  --leading-heading:  1.18;
+  --leading-subhead:  1.28;
+  --leading-body:     1.72;
+  --leading-relaxed:  1.82;
 
   /* Brand violet */
   --violet-primary: #7C3AED;
@@ -107,22 +124,49 @@
   }
 
   body {
-    font-family: 'DM Sans', system-ui, sans-serif;
-    font-size: 16px;
-    line-height: 1.65;
+    font-family: var(--font-body);
+    font-size: 16.5px;
+    line-height: var(--leading-body);
     color: #0F0F0F;
     background: #FFFFFF;
+    font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+    font-optical-sizing: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: 'Bricolage Grotesque', system-ui, sans-serif;
-    letter-spacing: -0.02em;
-    line-height: 1.2;
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    letter-spacing: var(--tracking-heading);
+    line-height: var(--leading-heading);
+    font-feature-settings: "kern" 1, "ss01" 1;
+    font-optical-sizing: auto;
+    text-wrap: balance;
+  }
+
+  h1 {
+    letter-spacing: var(--tracking-display);
+    line-height: var(--leading-display);
+    font-weight: 800;
+  }
+
+  h2 {
+    letter-spacing: var(--tracking-heading);
+    line-height: var(--leading-heading);
+    font-weight: 700;
+  }
+
+  h3 {
+    letter-spacing: var(--tracking-subhead);
+    line-height: var(--leading-subhead);
+    font-weight: 700;
+  }
+
+  h4, h5, h6 {
+    letter-spacing: var(--tracking-ui);
+    line-height: var(--leading-subhead);
+    font-weight: 600;
   }
 
   ::selection {
@@ -172,28 +216,36 @@
   .section-heading {
     font-family: var(--font-display);
     @apply font-bold text-[28px] md:text-[40px];
-    letter-spacing: -0.02em;
-    line-height: 1.2;
+    letter-spacing: var(--tracking-display);
+    line-height: var(--leading-heading);
     color: var(--text-light-h);
+    font-feature-settings: "kern" 1, "ss01" 1;
+    text-wrap: balance;
   }
 
   .section-heading-white {
     font-family: var(--font-display);
     @apply font-bold text-[28px] md:text-[40px];
-    letter-spacing: -0.02em;
-    line-height: 1.2;
+    letter-spacing: var(--tracking-display);
+    line-height: var(--leading-heading);
     color: var(--text-dark-h);
+    font-feature-settings: "kern" 1, "ss01" 1;
+    text-wrap: balance;
   }
 
   .section-subheading {
-    @apply font-dm text-[15px] md:text-[17px] max-w-[560px] mx-auto;
-    line-height: 1.65;
+    font-family: var(--font-body);
+    @apply text-[15.5px] md:text-[17px] max-w-[560px] mx-auto;
+    line-height: var(--leading-relaxed);
+    letter-spacing: 0.005em;
     color: var(--text-light-muted);
   }
 
   .section-subheading-white {
-    @apply font-dm text-[15px] md:text-[17px] max-w-[560px] mx-auto;
-    line-height: 1.65;
+    font-family: var(--font-body);
+    @apply text-[15.5px] md:text-[17px] max-w-[560px] mx-auto;
+    line-height: var(--leading-relaxed);
+    letter-spacing: 0.005em;
     color: var(--text-dark-muted);
   }
 
@@ -505,6 +557,71 @@
     text-wrap: balance;
   }
 
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  /* ── Typography utilities ── */
+  .font-feature-display {
+    font-feature-settings: "kern" 1, "ss01" 1, "liga" 1;
+  }
+
+  .font-feature-body {
+    font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  }
+
+  .font-feature-tabular {
+    font-feature-settings: "tnum" 1, "kern" 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Display type: hero headers, huge numbers */
+  .type-display {
+    font-family: var(--font-display);
+    letter-spacing: var(--tracking-display);
+    line-height: var(--leading-display);
+    font-weight: 800;
+  }
+
+  /* Section headings */
+  .type-heading {
+    font-family: var(--font-display);
+    letter-spacing: var(--tracking-heading);
+    line-height: var(--leading-heading);
+    font-weight: 700;
+  }
+
+  /* Sub-headings, card titles */
+  .type-subhead {
+    font-family: var(--font-heading);
+    letter-spacing: var(--tracking-subhead);
+    line-height: var(--leading-subhead);
+    font-weight: 600;
+  }
+
+  /* UI elements: buttons, nav, labels */
+  .type-ui {
+    font-family: var(--font-heading);
+    letter-spacing: var(--tracking-ui);
+    font-weight: 500;
+  }
+
+  /* Body copy */
+  .type-body {
+    font-family: var(--font-body);
+    letter-spacing: var(--tracking-body);
+    line-height: var(--leading-body);
+  }
+
+  /* Uppercase labels / badges */
+  .type-label {
+    font-family: var(--font-heading);
+    letter-spacing: var(--tracking-label);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.6875rem; /* 11px */
+  }
+
   /* Stagger delays */
   .delay-0 {
     animation-delay: 0ms;
@@ -562,27 +679,37 @@
     animation-delay: 960ms;
   }
 
-  /* Typography */
+  /* Tracking (letter-spacing) */
   .tracking-premium {
-    letter-spacing: -0.02em;
+    letter-spacing: var(--tracking-display);
+  }
+
+  .tracking-tight-heading {
+    letter-spacing: var(--tracking-heading);
   }
 
   .tracking-labels {
-    letter-spacing: 0.06em;
+    letter-spacing: var(--tracking-label);
   }
 
   .tracking-caps {
-    letter-spacing: 0.08em;
+    letter-spacing: var(--tracking-caps);
   }
 
+  /* Line heights */
   .leading-body {
-    line-height: 1.7;
+    line-height: var(--leading-body);
   }
 
   .leading-heading {
-    line-height: 1.15;
+    line-height: var(--leading-heading);
   }
-}
+
+  .leading-display {
+    line-height: var(--leading-display);
+  }
+
+} /* end @layer utilities */
 
 /* ─── Hide Scrollbar for Horizontal Scroll ─────────────────────────────────── */
 .hide-scrollbar {

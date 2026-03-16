@@ -73,7 +73,7 @@ export default function HowSellingWorks() {
           />
           
           <p className="font-dm text-[#6B7280] max-w-[540px] mx-auto" style={{ fontSize: "16px", lineHeight: 1.6 }}>
-            We've streamlined our trade-in process to be as simple and rewarding as possible. Get paid for your tech in three easy steps.
+            We&apos;ve streamlined our trade-in process to be as simple and rewarding as possible. Get paid for your tech in three easy steps.
           </p>
         </motion.div>
 

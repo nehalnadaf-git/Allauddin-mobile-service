@@ -682,28 +682,7 @@ function Step4({
         </div>
       </div>
 
-      {/* Message preview */}
-      <div>
-        <p className="font-dm font-medium mb-2" style={{ fontSize: "13px", color: "#374151" }}>
-          Message that will be sent to Aladdin Mobile Service:
-        </p>
-        <div
-          style={{
-            background: "rgba(37,211,102,0.06)",
-            border: "1px solid rgba(37,211,102,0.2)",
-            borderLeft: "4px solid #25D366",
-            borderRadius: "14px",
-            padding: "20px",
-          }}
-        >
-          <p
-            className="font-dm whitespace-pre-wrap"
-            style={{ fontSize: "14px", color: "#374151", lineHeight: 1.7 }}
-          >
-            {message}
-          </p>
-        </div>
-      </div>
+
 
       {/* Send button */}
       <a

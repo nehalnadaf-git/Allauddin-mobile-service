@@ -585,10 +585,12 @@ function SummaryRow({ label, value }: { label: string; value: string }) {
 function Step4({
   form,
   onBack,
+  onEditPhone,
   onSubmit,
 }: {
   form: SellFormData;
   onBack: () => void;
+  onEditPhone: () => void;
   onSubmit: () => void;
 }) {
   const brandDisplay = form.brand === "Other" ? form.customBrand || "Other" : form.brand;
@@ -633,7 +635,7 @@ function Step4({
         <div className="flex justify-end mt-2">
           <button
             type="button"
-            onClick={() => form.currentStep !== 1 && onBack()}
+            onClick={onEditPhone}
             className="font-poppins font-medium"
             style={{ fontSize: "13px", color: "#7C3AED", background: "none", border: "none", cursor: "pointer", padding: 0 }}
           >
@@ -688,10 +690,14 @@ function Step4({
       </div>
 
       {/* Send button */}
-      <button
-        type="button"
-        onClick={onSubmit}
-        className="flex items-center justify-center gap-3 w-full font-poppins font-semibold text-white transition-all active:scale-[0.97]"
+      <a
+        href={`https://wa.me/${OWNER_WHATSAPP}?text=${encodeURIComponent(message)}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={() => {
+          setTimeout(() => onSubmit(), 500);
+        }}
+        className="flex items-center justify-center gap-3 w-full font-poppins font-semibold text-white transition-all active:scale-[0.97] no-underline"
         style={{
           fontSize: "17px",
           height: "60px",
@@ -700,6 +706,7 @@ function Step4({
           boxShadow: "0 6px 20px rgba(37,211,102,0.45)",
           border: "none",
           cursor: "pointer",
+          display: "flex",
         }}
         onMouseEnter={(e) => {
           (e.currentTarget as HTMLElement).style.background = "#22C55E";
@@ -717,7 +724,7 @@ function Step4({
           <path fillRule="evenodd" clipRule="evenodd" d="M16 3C8.82 3 3 8.82 3 16c0 2.47.68 4.78 1.86 6.74L3 29l6.5-1.83A12.94 12.94 0 0016 29c7.18 0 13-5.82 13-13S23.18 3 16 3zm0 23.6c-2.16 0-4.18-.6-5.9-1.65l-.42-.25-4.35 1.22 1.24-4.22-.27-.44A10.54 10.54 0 015.4 16c0-5.85 4.76-10.6 10.6-10.6S26.6 10.15 26.6 16 21.85 26.6 16 26.6zm5.82-7.94c-.32-.16-1.9-.94-2.2-1.04-.3-.1-.51-.16-.72.16-.22.32-.84 1.04-1.03 1.26-.19.22-.38.24-.7.08-.32-.16-1.34-.5-2.56-1.6-.94-.84-1.58-1.88-1.76-2.2-.19-.32-.02-.49.14-.65.14-.14.32-.37.48-.55.16-.18.22-.3.32-.51.11-.22.06-.4-.02-.57-.08-.16-.72-1.73-.99-2.38-.26-.62-.53-.54-.72-.55l-.62-.01a1.19 1.19 0 00-.86.4c-.3.32-1.13 1.1-1.13 2.68 0 1.58 1.16 3.1 1.32 3.31.16.22 2.27 3.47 5.5 4.87.77.33 1.37.53 1.84.68.77.24 1.47.2 2.02.12.62-.09 1.9-.78 2.17-1.54.26-.75.26-1.4.18-1.54-.08-.14-.3-.22-.62-.38z" fill="white"/>
         </svg>
         Send to WhatsApp →
-      </button>
+      </a>
 
       <button
         type="button"
@@ -841,8 +848,13 @@ export default function SellForm() {
   const validateStep3 = () => {
     const errs: Partial<Record<string, string>> = {};
     if (form.name.trim().length < 2) errs.name = "Please enter your name";
-    const cleanPhone = form.phone.replace(/[\s\-()]/g, "").replace(/^\+91/, "");
-    if (!/^[6-9][0-9]{9}$/.test(cleanPhone)) errs.phone = "Please enter a valid 10-digit Indian mobile number";
+    
+    // Improved phone validation: strip leading +91, 0, spaces, dashes
+    const cleanPhone = form.phone.replace(/[\s\-()]/g, "").replace(/^(\+91|0)/, "");
+    if (!/^[6-9][0-9]{9}$/.test(cleanPhone)) {
+      errs.phone = "Please enter a valid 10-digit mobile number";
+    }
+    
     setErrors(errs);
     return Object.keys(errs).length === 0;
   };
@@ -918,6 +930,7 @@ export default function SellForm() {
           <Step4
             form={form}
             onBack={() => navigate(3, "backward")}
+            onEditPhone={() => navigate(1, "backward")}
             onSubmit={handleSend}
           />
         )}

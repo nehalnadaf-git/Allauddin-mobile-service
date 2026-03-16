@@ -149,6 +149,19 @@ export default function Footer() {
                                     </li>
                                 ))}
                             </ul>
+
+                            <h4 className="font-poppins font-semibold text-[11px] uppercase mb-6 mt-10" style={{ color: "rgba(255,255,255,0.4)", letterSpacing: "0.08em" }}>
+                                Trade-In
+                            </h4>
+                            <ul className="space-y-4">
+                                <li>
+                                    <Link href="/sell-your-mobile"
+                                        className="font-dm text-[15px] transition-colors duration-200 hover:text-white flex items-center"
+                                        style={{ color: "rgba(255,255,255,0.8)" }}>
+                                        Sell Your Mobile
+                                    </Link>
+                                </li>
+                            </ul>
                         </div>
 
                         {/* Column 3: Get In Touch (30%) */}

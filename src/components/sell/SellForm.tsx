@@ -76,6 +76,18 @@ const TIME_OPTIONS = [
 // ─── WhatsApp number ──────────────────────────────────────────────────────────
 const OWNER_WHATSAPP = "916363278962";
 
+// ─── Shared helper: normalise phone number for validation ─────────────────────
+function cleanPhoneNumber(raw: string): string {
+  // Remove spaces, dashes, brackets, then strip leading +91, 91, or 0
+  return raw
+    .replace(/[\s\-()]/g, "")
+    .replace(/^(\+91|91(?=[6-9])|0)/, "");
+}
+
+function isValidIndianPhone(raw: string): boolean {
+  return /^[6-9][0-9]{9}$/.test(cleanPhoneNumber(raw));
+}
+
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 function buildWhatsAppMessage(form: SellFormData): string {
@@ -490,11 +502,15 @@ function Step3({
         />
       </Field>
 
-      <Field label="Your WhatsApp Number" helper="We will send you a message on this number" error={errors.phone}>
+      <Field
+        label="Your WhatsApp Number"
+        helper="Enter 10-digit mobile number (e.g. 9876543210)"
+        error={errors.phone}
+      >
         <TextInput
           value={form.phone}
           onChange={(phone) => update({ phone })}
-          placeholder="+91 XXXXX XXXXX"
+          placeholder="9876543210"
           type="tel"
           hasError={!!errors.phone}
         />
@@ -554,7 +570,7 @@ function Step3({
         backLabel="← Back"
         nextDisabled={
           form.name.trim().length < 2 ||
-          !/^[6-9][0-9]{9}$/.test(form.phone.replace(/[\s\-()]/g, "").replace(/^\+91/, ""))
+          cleanPhoneNumber(form.phone).replace(/\D/g, "").length < 10
         }
       />
     </div>
@@ -821,6 +837,7 @@ export default function SellForm() {
   }, []);
 
   const navigate = (nextStep: number, dir: "forward" | "backward") => {
+    setErrors({}); // clear stale errors when navigating
     setTransitionDir(dir);
     setTransitioning(true);
     setTimeout(() => {
@@ -848,22 +865,15 @@ export default function SellForm() {
   const validateStep3 = () => {
     const errs: Partial<Record<string, string>> = {};
     if (form.name.trim().length < 2) errs.name = "Please enter your name";
-    
-    // Improved phone validation: strip leading +91, 0, spaces, dashes
-    const cleanPhone = form.phone.replace(/[\s\-()]/g, "").replace(/^(\+91|0)/, "");
-    if (!/^[6-9][0-9]{9}$/.test(cleanPhone)) {
-      errs.phone = "Please enter a valid 10-digit mobile number";
+    if (!isValidIndianPhone(form.phone)) {
+      errs.phone = "Please enter a valid 10-digit mobile number (e.g. 9876543210)";
     }
-    
     setErrors(errs);
     return Object.keys(errs).length === 0;
   };
 
+  // The <a> tag in Step4 handles opening WhatsApp; this just marks the form submitted
   const handleSend = () => {
-    const message = buildWhatsAppMessage(form);
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappURL = `https://wa.me/${OWNER_WHATSAPP}?text=${encodedMessage}`;
-    window.open(whatsappURL, "_blank", "noopener,noreferrer");
     update({ submitted: true });
   };
 
